@@ -1,0 +1,18 @@
+{
+  "name": "graphpolaris-vis-api",
+  "version": "1.0.0",
+  "description": "API for messages for visualization add-ons for GraphPolaris.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.74",
+    "tsc": "^2.0.4"
+  }
+}
