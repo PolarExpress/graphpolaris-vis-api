@@ -7,17 +7,22 @@
  */
 
 import { useEffect, useState } from "react";
+import { GraphQueryResult, Message } from "./types";
 
 /**
  * Returns the last message received.
  *
  * Component rerenders on receiving a new message.
  */
-export function useMessage() {
-  const [message, setMessage] = useState<object | null>(null);
+function useMessage<T extends Message["type"], U extends Extract<Message, { type: T }>["data"]>(typeFilter: T): U | null {
+  const [message, setMessage] = useState<U | null>(null);
 
-  function updateMessage(e: MessageEvent) {
-    setMessage(e.data);
+  function updateMessage(e: MessageEvent<Message>) {
+    const data = e.data;
+
+    if (data.type === typeFilter) {
+      setMessage(data.data as U);
+    }
   }
 
   useEffect(() => {
@@ -26,4 +31,12 @@ export function useMessage() {
   }, []);
 
   return message;
+}
+
+export function useGraphData() {
+  return useMessage("GraphData");
+}
+
+export function useMLData() {
+  return useMessage("MLData");
 }
