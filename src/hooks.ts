@@ -7,14 +7,20 @@
  */
 
 import { useEffect, useState } from "react";
-import { GraphQueryResult, Message } from "./types";
+import { Message } from "./message";
 
 /**
- * Returns the last message received.
+ * Returns the last message received,
+ * or `null` if no message has been sent  yet.
  *
  * Component rerenders on receiving a new message.
+ *
+ * @param typeFilter The type of messages to listen for.
  */
-function useMessage<T extends Message["type"], U extends Extract<Message, { type: T }>["data"]>(typeFilter: T): U | null {
+function useMessage<
+  T extends Message["type"],
+  U extends Extract<Message, { type: T }>["data"]
+>(typeFilter: T): U | null {
   const [message, setMessage] = useState<U | null>(null);
 
   function updateMessage(e: MessageEvent<Message>) {
@@ -33,10 +39,22 @@ function useMessage<T extends Message["type"], U extends Extract<Message, { type
   return message;
 }
 
+/**
+ * Returns the last message containing graph data
+ * that has been sent, or `null` if no such message has been sent.
+ *
+ * Component rerenders on receiving a new message.
+ */
 export function useGraphData() {
   return useMessage("GraphData");
 }
 
+/**
+ * Returns the last message containing machine learning data
+ * that has been sent, or `null` if no such message has been sent.
+ *
+ * Component rerenders on receiving a new message.
+ */
 export function useMLData() {
   return useMessage("MLData");
 }

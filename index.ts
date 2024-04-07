@@ -6,4 +6,5 @@
  * (Department of Information and Computing Sciences)
  */
 
-export * from "./hooks";
+export * from "./src/hooks";
+export * from "./src/message";

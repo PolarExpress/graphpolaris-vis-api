@@ -1,26 +1,7 @@
-interface BaseMessage {
-  /** A unique string determining the type of the message. */
-  type: string,
-  /** The data sent with the message. */
-  data: object
-}
-
-/** A message containing the result from the graph query. */
-export interface GraphMessage extends BaseMessage {
-  type: "GraphData"
-  data: GraphQueryResult
-}
-
-export interface MLMessage extends BaseMessage {
-  type: "MLData",
-  data: ML
-}
-
-/**
- * A generic message.
- * 
- */
-export type Message = GraphMessage | MLMessage;
+/*
+Contains types from GraphPolaris frontend-v2.
+TODO: use a shared library instead.
+*/
 
 export interface GraphQueryResult {
   metaData: GraphMetaData;
@@ -48,7 +29,7 @@ export interface Edge {
 export type GraphMetaData = {
   nodes: CompressedElement;
   edges: CompressedElement;
-};  
+};
 
 export type CompressedElement = {
   count?: number;
@@ -69,7 +50,11 @@ export type CompressedElement = {
   };
 };
 
-export type DimensionType = 'categorical' | 'numerical' | 'temporal' | 'spatial';
+export type DimensionType =
+  | "categorical"
+  | "numerical"
+  | "temporal"
+  | "spatial";
 
 export type NodeAttributes = { [key: string]: unknown };
 
@@ -78,4 +63,36 @@ export type ML = {
   [MLTypesEnum.CENTRALITY]: MLInstance<Record<string, number>>;
   [MLTypesEnum.COMMUNITY_DETECTION]: CommunityDetection;
   [MLTypesEnum.SHORTEST_PATH]: ShortestPath;
+};
+
+export enum MLTypesEnum {
+  CENTRALITY = "centrality",
+  LINK_PREDICTION = "linkPrediction",
+  COMMUNITY_DETECTION = "communityDetection",
+  SHORTEST_PATH = "shortestPath"
+}
+
+export type MLInstance<T> = {
+  enabled: boolean;
+  result: T;
+};
+
+export type LinkPredictionInstance = {
+  attributes: { jaccard_coefficient: number };
+  from: string;
+  to: string;
+  id: string;
+};
+
+export type CommunityDetectionInstance = string[]; // set of ids
+
+export type CommunityDetection = MLInstance<CommunityDetectionInstance[]> & {
+  jaccard_threshold: number;
+};
+
+export type ShortestPath = {
+  enabled: boolean;
+  result: any;
+  srcNode?: string;
+  trtNode?: string;
 };
