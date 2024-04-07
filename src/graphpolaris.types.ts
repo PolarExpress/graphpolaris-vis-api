@@ -1,7 +1,13 @@
+/* eslint-disable custom/enforce-copyright-comment -- Not our code. */
+
 /*
 Contains types from GraphPolaris frontend-v2.
 TODO: use a shared library instead.
 */
+
+// ------------------------------------
+// Data
+// ------------------------------------
 
 export interface GraphQueryResult {
   metaData: GraphMetaData;
@@ -58,12 +64,9 @@ export type DimensionType =
 
 export type NodeAttributes = { [key: string]: unknown };
 
-export type ML = {
-  [MLTypesEnum.LINK_PREDICTION]: MLInstance<LinkPredictionInstance[]>;
-  [MLTypesEnum.CENTRALITY]: MLInstance<Record<string, number>>;
-  [MLTypesEnum.COMMUNITY_DETECTION]: CommunityDetection;
-  [MLTypesEnum.SHORTEST_PATH]: ShortestPath;
-};
+// ------------------------------------
+// Machine Learning
+// ------------------------------------
 
 export enum MLTypesEnum {
   CENTRALITY = "centrality",
@@ -71,6 +74,13 @@ export enum MLTypesEnum {
   COMMUNITY_DETECTION = "communityDetection",
   SHORTEST_PATH = "shortestPath"
 }
+
+export type ML = {
+  [MLTypesEnum.LINK_PREDICTION]: MLInstance<LinkPredictionInstance[]>;
+  [MLTypesEnum.CENTRALITY]: MLInstance<Record<string, number>>;
+  [MLTypesEnum.COMMUNITY_DETECTION]: CommunityDetection;
+  [MLTypesEnum.SHORTEST_PATH]: ShortestPath;
+};
 
 export type MLInstance<T> = {
   enabled: boolean;
@@ -96,3 +106,91 @@ export type ShortestPath = {
   srcNode?: string;
   trtNode?: string;
 };
+
+// ------------------------------------
+// Settings
+// ------------------------------------
+
+type SliderProps = {
+  label: string;
+  type: "slider";
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  showValue?: boolean;
+  unit?: string;
+  tooltip?: string;
+  onChange?: (value: number) => void;
+};
+
+type TextProps = {
+  label: string;
+  type: "text";
+  placeholder?: string;
+  value: string;
+  required?: boolean;
+  errorText?: string;
+  visible?: boolean;
+  disabled?: boolean;
+  tooltip?: string;
+  info?: string;
+  validate?: (value: any) => boolean;
+  onChange?: (value: string) => void;
+};
+
+type CheckboxProps = {
+  label?: string;
+  type: "checkbox";
+  options: Array<string>;
+  value: Array<string>;
+  tooltip?: string;
+  onChange?: (value: Array<string>) => void;
+};
+
+type BooleanProps = {
+  label: string;
+  type: "boolean";
+  options?: any;
+  value: boolean;
+  tooltip?: string;
+  onChange?: (value: boolean) => void;
+};
+
+type RadioProps = {
+  label?: string;
+  type: "radio";
+  options: Array<string>;
+  value: string;
+  tooltip?: string;
+  onChange?: (value: string) => void;
+};
+
+type DropdownProps = {
+  label?: string;
+  value: string | number | undefined;
+  type: "dropdown";
+  options: any;
+  tooltip?: string;
+  onChange?: (value: string | number) => void;
+  required?: boolean;
+  info?: string;
+  disabled?: boolean;
+};
+
+export type InputProps =
+  | TextProps
+  | SliderProps
+  | CheckboxProps
+  | DropdownProps
+  | RadioProps
+  | BooleanProps;
+
+export type Setting = InputProps & {
+  condition?: (config: Record<string, any>) => boolean;
+  description?: string;
+};
+
+export type SettingTypes = { [id: string]: Setting };
+
+export type SettingProps = { [K in keyof SettingTypes]: any };

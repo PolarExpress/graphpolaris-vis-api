@@ -11,16 +11,16 @@
   },
   "author": "",
   "dependencies": {
-    "@types/eslint": "^8.56.7",
     "react": "18.2.0"
   },
   "devDependencies": {
+    "@types/eslint": "^8.56.7",
     "@types/react": "^18.2.74",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-react-app": "^7.0.1",
     "prettier": "^3.2.5",
-    "typescript": "^5.1.3",
+    "typescript": "5.1.3",
     "typescript-eslint": "^7.5.0"
   }
 }

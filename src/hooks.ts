@@ -31,10 +31,12 @@ function useMessage<
     }
   }
 
+  /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
   useEffect(() => {
     window.addEventListener("message", updateMessage);
     return () => window.removeEventListener("message", updateMessage);
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return message;
 }
@@ -56,5 +58,15 @@ export function useGraphData() {
  * Component rerenders on receiving a new message.
  */
 export function useMLData() {
+  return useMessage("MLData");
+}
+
+/**
+ * Returns the last message containing visualization settings
+ * that has been sent, or `null` if no such message has been sent.
+ *
+ * Component rerenders on receiving a new message.
+ */
+export function useSettings() {
   return useMessage("MLData");
 }
