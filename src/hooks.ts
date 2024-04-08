@@ -68,5 +68,5 @@ export function useMLData() {
  * Component rerenders on receiving a new message.
  */
 export function useSettings() {
-  return useMessage("MLData");
+  return useMessage("Settings");
 }
