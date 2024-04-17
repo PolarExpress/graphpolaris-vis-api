@@ -111,6 +111,7 @@ export type ShortestPath = {
 // Settings
 // ------------------------------------
 
+/*
 type SliderProps = {
   label: string;
   type: "slider";
@@ -194,3 +195,4 @@ export type Setting = InputProps & {
 export type SettingTypes = { [id: string]: Setting };
 
 export type SettingProps = { [K in keyof SettingTypes]: any };
+*/

@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { Message } from "./message";
+import { Settings, ReceiveMessage, SendMessage } from "./message";
 
 /**
  * Returns the last message received,
@@ -18,16 +18,16 @@ import { Message } from "./message";
  * @param typeFilter The type of messages to listen for.
  */
 function useMessage<
-  T extends Message["type"],
-  U extends Extract<Message, { type: T }>["data"]
->(typeFilter: T): U | null {
-  const [message, setMessage] = useState<U | null>(null);
+  TFilter extends ReceiveMessage["type"],
+  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"]
+>(typeFilter: TFilter): TData | null {
+  const [message, setMessage] = useState<TData | null>(null);
 
-  function updateMessage(e: MessageEvent<Message>) {
+  function updateMessage(e: MessageEvent<ReceiveMessage>) {
     const data = e.data;
 
     if (data.type === typeFilter) {
-      setMessage(data.data as U);
+      setMessage(data.data as TData);
     }
   }
 
@@ -39,6 +39,13 @@ function useMessage<
   /* eslint-enable react-hooks/exhaustive-deps */
 
   return message;
+}
+
+/**
+ * Sends a message to the parent window.
+ */
+function sendMessage(message: SendMessage) {
+  window.top?.postMessage(message, "*");
 }
 
 /**
@@ -66,7 +73,35 @@ export function useMLData() {
  * that has been sent, or `null` if no such message has been sent.
  *
  * Component rerenders on receiving a new message.
+ *
+ * Should only be used for the visualization component.
  */
-export function useSettings() {
+export function useSettingsData<T extends Settings>(): T | null {
   return useMessage("Settings");
 }
+
+/**
+ * Returns the currently used settings and a function to update the used settings.
+ *
+ * Should only be used for the settings component.
+ *
+ * @returns The current settings, and a function to update them.
+ */
+export function useSettings<T extends Settings>(): readonly [
+  T | null,
+  UpdateFunction<T>
+] {
+  const settingsData = useSettingsData<T>();
+  const sendSettings: UpdateFunction<T> = changes =>
+    sendMessage({
+      type: "Settings",
+      data: changes
+    });
+
+  return [settingsData, sendSettings];
+}
+
+/**
+ * A function to to send an update to an object.
+ */
+export type UpdateFunction<T> = (changes: Partial<T>) => void;

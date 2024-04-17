@@ -6,13 +6,13 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { GraphQueryResult, ML, SettingProps } from "./graphpolaris.types";
+import type { GraphQueryResult, ML } from "./graphpolaris.types";
 
 interface BaseMessage {
   /** A unique string determining the type of the message. */
   type: string;
   /** The data sent with the message. */
-  data: object;
+  data: unknown;
 }
 
 /** A message containing the result from the graph query. */
@@ -30,10 +30,17 @@ export interface MLMessage extends BaseMessage {
 /** A message containing visualization settings. */
 export interface SettingsMessage extends BaseMessage {
   type: "Settings";
-  data: SettingProps;
+  data: Settings;
 }
 
 /**
  * The types of messages that an add-on can receive.
  */
-export type Message = GraphMessage | MLMessage | SettingsMessage;
+export type ReceiveMessage = GraphMessage | MLMessage | SettingsMessage;
+
+/**
+ * The types of messages that an add-on can send.
+ */
+export type SendMessage = SettingsMessage;
+
+export type Settings = Record<string, unknown>;
