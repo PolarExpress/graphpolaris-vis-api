@@ -74,7 +74,7 @@ export function useMLData() {
  *
  * Component rerenders on receiving a new message.
  *
- * Should only be used for the visualization component.
+ * **Note**: This hook should only be used for the visualization component. For setting components use the {@link useSettings} hook that can also push a new configuration to GraphPolaris.
  */
 export function useSettingsData<T extends Settings>(): T | null {
   return useMessage("Settings");
@@ -83,14 +83,14 @@ export function useSettingsData<T extends Settings>(): T | null {
 /**
  * Returns the currently used settings and a function to update the used settings.
  *
- * Should only be used for the settings component.
+ * **Note**: This hook should only be used for the settings component. The update function's messages are ignored by GraphPorlaris if it is called from the visualisation component, use the {@link useSettingsData} hook instead.
  *
+ * @param start The default configuration to start with
  * @returns The current settings, and a function to update them.
  */
-export function useSettings<T extends Settings>(): readonly [
-  T | null,
-  UpdateFunction<T>
-] {
+export function useSettings<T extends Settings>(
+  start: T
+): readonly [T, UpdateFunction<T>] {
   const settingsData = useSettingsData<T>();
   const sendSettings: UpdateFunction<T> = changes =>
     sendMessage({
@@ -98,7 +98,9 @@ export function useSettings<T extends Settings>(): readonly [
       data: changes
     });
 
-  return [settingsData, sendSettings];
+  sendSettings(start);
+
+  return [settingsData || start, sendSettings];
 }
 
 /**
