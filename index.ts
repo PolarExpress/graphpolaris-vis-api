@@ -6,5 +6,14 @@
  * (Department of Information and Computing Sciences)
  */
 
+/**
+ * @packageDocumentation
+ * @categoryDescription React hooks
+ * These functions are designed to work as react hooks, they will cause a rerender if the value that is returned is updated by GraphPolaris.
+ * 
+ * @categoryDescription Settings
+ * All functions and types that are related to building a settings interface for a visualisation.
+ */
+
 export * from "./src/hooks";
 export * from "./src/message";

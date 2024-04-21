@@ -14,8 +14,11 @@ import { Settings, ReceiveMessage, SendMessage } from "./message";
  * or `null` if no message has been sent  yet.
  *
  * Component rerenders on receiving a new message.
+ * 
+ * @category React hooks
  *
  * @param typeFilter The type of messages to listen for.
+ * @internal
  */
 function useMessage<
   TFilter extends ReceiveMessage["type"],
@@ -53,6 +56,8 @@ function sendMessage(message: SendMessage) {
  * that has been sent, or `null` if no such message has been sent.
  *
  * Component rerenders on receiving a new message.
+ * 
+ * @category React hooks
  */
 export function useGraphData() {
   return useMessage("GraphData");
@@ -63,18 +68,37 @@ export function useGraphData() {
  * that has been sent, or `null` if no such message has been sent.
  *
  * Component rerenders on receiving a new message.
+ * 
+ * @category React hooks
  */
 export function useMLData() {
   return useMessage("MLData");
 }
 
 /**
+ * A react hook that fetches the configuration for this addon's instance from the GraphPolaris session. Component rerenders on receiving a new configuration.
+ * 
+ * @remarks
+ * This hook should only be used for the visualization component. For setting components use the {@link useSettings} hook that can also push a new configuration to GraphPolaris.
+ * 
+ * @example
+ * ```tsx
+ * type VisSettings = { theme: "dark" | "light" };
+ * export default function Visualisation() {
+ *   const { theme } = useSettingsData<VisSettings>();
+ *   return (<div className={`theme-${theme}`}>...</div>);
+ * }
+ * ```
+ *
+ * @template T
+ * The type of the configuration which must adhere to the configuration requirements.
+ * 
+ * @returns
  * Returns the last message containing visualization settings
- * that has been sent, or `null` if no such message has been sent.
- *
- * Component rerenders on receiving a new message.
- *
- * **Note**: This hook should only be used for the visualization component. For setting components use the {@link useSettings} hook that can also push a new configuration to GraphPolaris.
+ * that has been sent, or `null` if no configuration has yet been sent.
+ * 
+ * @category React hooks
+ * @category Settings
  */
 export function useSettingsData<T extends Settings>(): T | null {
   return useMessage("Settings");
@@ -83,10 +107,35 @@ export function useSettingsData<T extends Settings>(): T | null {
 /**
  * Returns the currently used settings and a function to update the used settings.
  *
- * **Note**: This hook should only be used for the settings component. The update function's messages are ignored by GraphPorlaris if it is called from the visualisation component, use the {@link useSettingsData} hook instead.
+ * @remarks
+ * This hook should only be used for the settings component. The update function's messages are ignored by GraphPorlaris if it is called from the visualisation component, use the {@link useSettingsData} hook instead.
+ * 
+ * @example
+ * ```tsx
+ * type VisSettings = { theme: "dark" | "light" };
+ * export default function Settings() {
+ *   const [config, updateConfig] = useSettings<VisSettings>({ theme: "dark" });
+ *   return (<>
+ *     <label htmlFor="theme">Dark theme:</label>
+ *     <input
+ *       id="theme"
+ *       type="checkbox"
+ *       value={config.theme === "dark"}
+ *       onChange={e => updateConfig({ theme: e.target.value ? "dark" : "light" })} />
+ *   </>);
+ * }
+ * ```
+ * 
+ * @category React hooks
+ * @category Settings
+ * 
+ * @template T
+ * The type of the configuration which must adhere to the configuration requirements.
  *
- * @param start The default configuration to start with
- * @returns The current settings, and a function to update them.
+ * @param start
+ * The default configuration to start with. This configuration is shown when there is no existing configuration found in the user's save state, for instance when on the first ever install of the addon.
+ * @returns
+ * The current settings, and a function to update them. The function accepts a partial version of the settings, and GraphPolaris will merge the current configuration with the partially sent configuration.
  */
 export function useSettings<T extends Settings>(
   start: T
@@ -104,6 +153,9 @@ export function useSettings<T extends Settings>(
 }
 
 /**
- * A function to to send an update to an object.
+ * A function to send an update to the visualisation's configuration.
+ * @see {@link useSettings}
+ * @category Settings
  */
 export type UpdateFunction<T> = (changes: Partial<T>) => void;
+
