@@ -6,7 +6,11 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { GraphQueryResult, ML } from "./graphpolaris.types";
+import type {
+  GraphQueryResult,
+  ML,
+  SchemaGraph
+} from "./graphpolaris.types";
 
 interface BaseMessage {
   /** A unique string determining the type of the message. */
@@ -33,10 +37,16 @@ export interface SettingsMessage extends BaseMessage {
   data: Settings;
 }
 
+/** A message containing the schema graph. */
+export interface SchemaMessage extends BaseMessage {
+  type: "Schema";
+  data: SchemaGraph;
+}
+
 /**
- * The types of messages that an add-on can receive.
+ * The types of messages an add-on can receive.
  */
-export type ReceiveMessage = GraphMessage | MLMessage | SettingsMessage;
+export type ReceiveMessage = GraphMessage | MLMessage | SettingsMessage | SchemaMessage;
 
 /**
  * The types of messages that an add-on can send.
