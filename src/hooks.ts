@@ -10,8 +10,8 @@ import { useEffect, useState } from "react";
 import { Settings, ReceiveMessage, SendMessage } from "./message";
 
 /**
- * Returns the last message received,
- * or `null` if no message has been sent  yet.
+ * Returns the data of the last message received,
+ * or `null` if no message has been sent yet.
  *
  * Component rerenders on receiving a new message.
  * 
@@ -52,7 +52,7 @@ function sendMessage(message: SendMessage) {
 }
 
 /**
- * Returns the last message containing graph data
+ * Returns the data of the last message containing graph data.
  * that has been sent, or `null` if no such message has been sent.
  *
  * Component rerenders on receiving a new message.
@@ -64,7 +64,7 @@ export function useGraphData() {
 }
 
 /**
- * Returns the last message containing machine learning data
+ * Returns the data of the last message containing machine learning data
  * that has been sent, or `null` if no such message has been sent.
  *
  * Component rerenders on receiving a new message.
@@ -159,3 +159,15 @@ export function useSettings<T extends Settings>(
  */
 export type UpdateFunction<T> = (changes: Partial<T>) => void;
 
+/** Returns the data of the last message containing the schema graph
+ * that has been sent, or `null` if no such message has been sent.
+ *
+ * Component rerenders on receiving a new message.
+ * 
+ * @category React hooks
+ *
+ * @returns A `SchemaGraph` containing the schema of the currently selected data.
+ */
+export function useSchema() {
+  return useMessage("Schema");
+}
