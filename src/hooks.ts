@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Settings, ReceiveMessage, SendMessage } from "./message";
 
 /**
@@ -20,14 +20,23 @@ import { Settings, ReceiveMessage, SendMessage } from "./message";
  * @param typeFilter The type of messages to listen for.
  * @internal
  */
-function useMessage<
+export function useMessage<
   TFilter extends ReceiveMessage["type"],
-  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"]
->(typeFilter: TFilter): TData | null {
-  const [message, setMessage] = useState<TData | null>(null);
+  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
+>(typeFilter: TFilter) : TData | undefined;
+export function useMessage<
+  TFilter extends ReceiveMessage["type"],
+  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
+>(typeFilter: TFilter, start: TData) : TData;
+export function useMessage<
+  TFilter extends ReceiveMessage["type"],
+  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
+>(typeFilter: TFilter, start?: TData) {
+  const [message, setMessage] = useState(start);
 
   function updateMessage(e: MessageEvent<ReceiveMessage>) {
     const data = e.data;
+    console.log(e);
 
     if (data.type === typeFilter) {
       setMessage(data.data as TData);
@@ -41,13 +50,14 @@ function useMessage<
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
 
-  return message;
+  return useMemo(() => message, [message]);
 }
 
 /**
  * Sends a message to the parent window.
  */
 function sendMessage(message: SendMessage) {
+  console.log("sending message");
   window.top?.postMessage(message, "*");
 }
 
@@ -100,7 +110,7 @@ export function useMLData() {
  * @category React hooks
  * @category Settings
  */
-export function useSettingsData<T extends Settings>(): T | null {
+export function useSettingsData<T extends Settings>(): T | undefined {
   return useMessage("Settings");
 }
 
@@ -140,16 +150,18 @@ export function useSettingsData<T extends Settings>(): T | null {
 export function useSettings<T extends Settings>(
   start: T
 ): readonly [T, UpdateFunction<T>] {
-  const settingsData = useSettingsData<T>();
+  const settingsData = useMessage("Settings", start);
   const sendSettings: UpdateFunction<T> = changes =>
     sendMessage({
       type: "Settings",
       data: changes
     });
 
-  sendSettings(start);
+  useEffect(() => {
+    sendSettings(start);
+  }, [start]);
 
-  return [settingsData || start, sendSettings];
+  return [settingsData, sendSettings];
 }
 
 /**
