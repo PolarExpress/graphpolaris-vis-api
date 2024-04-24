@@ -36,7 +36,6 @@ export function useMessage<
 
   function updateMessage(e: MessageEvent<ReceiveMessage>) {
     const data = e.data;
-    console.log(e);
 
     if (data.type === typeFilter) {
       setMessage(data.data as TData);
@@ -57,7 +56,6 @@ export function useMessage<
  * Sends a message to the parent window.
  */
 function sendMessage(message: SendMessage) {
-  console.log("sending message");
   window.top?.postMessage(message, "*");
 }
 
