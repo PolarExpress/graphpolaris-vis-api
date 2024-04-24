@@ -53,7 +53,7 @@ export const WindowContext = createContext<Window>(window);
 
 /**
  * Returns the data of the last message received,
- * or `null` if no message has been sent yet.
+ * or `undefined` if no message has been sent yet.
  *
  * Component rerenders on receiving a new message.
  * 
@@ -66,16 +66,29 @@ function useMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
 >(typeFilter: TFilter) : TData | undefined;
+
+/**
+ * Returns the data of the last message received, or the the default value
+ *
+ * Component rerenders on receiving a new message.
+ * 
+ * @category React hooks
+ *
+ * @param typeFilter The type of messages to listen for.
+ * @param defaultValue The standard value for the state
+ * @internal
+ */
 function useMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
->(typeFilter: TFilter, start: TData) : TData;
+>(typeFilter: TFilter, defaultValue: TData) : TData;
+
 function useMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
->(typeFilter: TFilter, start?: TData) {
+>(typeFilter: TFilter, defaultValue?: TData) {
   const window = useContext(WindowContext);
-  const [message, setMessage] = useState(start);
+  const [message, setMessage] = useState(defaultValue);
 
   function updateMessage(e: MessageEvent<ReceiveMessage>) {
     const data = e.data;
@@ -183,15 +196,15 @@ export function useSettingsData<T extends Settings>(): T | undefined {
  * @template T
  * The type of the configuration which must adhere to the configuration requirements.
  *
- * @param start
+ * @param defaultValue
  * The default configuration to start with. This configuration is shown when there is no existing configuration found in the user's save state, for instance when on the first ever install of the addon.
  * @returns
  * The current settings, and a function to update them. The function accepts a partial version of the settings, and GraphPolaris will merge the current configuration with the partially sent configuration.
  */
 export function useSettings<T extends Settings>(
-  start: T
+  defaultValue: T
 ): readonly [T, UpdateFunction<T>] {
-  const settingsData = useMessage("Settings", start);
+  const settingsData = useMessage("Settings", defaultValue);
   const sendSettings: UpdateFunction<T> = changes =>
     sendMessage({
       type: "Settings",
@@ -199,8 +212,8 @@ export function useSettings<T extends Settings>(
     });
 
   useEffect(() => {
-    sendSettings(start);
-  }, [start]);
+    sendSettings(defaultValue);
+  }, [defaultValue]);
 
   return [settingsData, sendSettings];
 }
