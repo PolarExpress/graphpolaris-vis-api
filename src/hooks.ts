@@ -20,15 +20,15 @@ import { Settings, ReceiveMessage, SendMessage } from "./message";
  * @param typeFilter The type of messages to listen for.
  * @internal
  */
-export function useMessage<
+function useMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
 >(typeFilter: TFilter) : TData | undefined;
-export function useMessage<
+function useMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
 >(typeFilter: TFilter, start: TData) : TData;
-export function useMessage<
+function useMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
 >(typeFilter: TFilter, start?: TData) {
