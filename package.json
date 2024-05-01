@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "API for messages for visualization add-ons for GraphPolaris.",
   "exports": {
-    ".": "./src/index.ts",
-    "./types": "./src/types/index.ts"
+    "./react": "./src/react/index.ts",
+    ".": "./src/base/index.ts"
   },
   "scripts": {
     "format": "prettier --write .",

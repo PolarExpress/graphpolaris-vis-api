@@ -109,48 +109,56 @@ export type CompressedElement = {
   /**
    * Metadata associated with each different label.
    */
-  types: Record<
-    string,
-    {
-      /**
-       * The number of elements with this label.
-       */
-      count: number;
-      /**
-       * The average in-degree of elements with this label, if applicable.
-       */
-      avgDegreeIn?: number;
-      /**
-       * The average out-degree of elements with this label, if applicable.
-       */
-      avgDegreeOut?: number;
-      /**
-       * Additional attributes associated with the elements.
-       */
-      attributes: Record<
-        string,
-        {
-          /**
-           * The type of the attribute.
-           */
-          dimension: DimensionType;
-          /**
-           * The values of the attribute, associated with this label, if applicable.
-           */
-          values?: unknown[];
-          /**
-           * The statistics associated with the attribute, if applicable.
-           */
-          statistics?: unknown;
-        }
-      >;
-    }
-  >;
+  types: Record<string, ElementTypeMetadata>;
 };
 
 /**
+ * Metadata associated with a group of elements.
+ *
+ * @category Graph data
+ */
+export interface ElementTypeMetadata {
+  /**
+   * The number of elements with this label.
+   */
+  count: number;
+  /**
+   * The average in-degree of elements with this label, if applicable.
+   */
+  avgDegreeIn?: number;
+  /**
+   * The average out-degree of elements with this label, if applicable.
+   */
+  avgDegreeOut?: number;
+  /**
+   * Additional attributes associated with the elements.
+   */
+  attributes: Record<string, ElementTypeAttributes>;
+}
+
+/**
+ * Attributes associated with a group of elements.
+ *
+ * @category Graph data
+ */
+export interface ElementTypeAttributes {
+  /**
+   * The type of the attribute.
+   */
+  dimension: DimensionType;
+  /**
+   * The values of the attribute, associated with this label, if applicable.
+   */
+  values?: unknown[];
+  /**
+   * The statistics associated with the attribute, if applicable.
+   */
+  statistics?: unknown;
+}
+
+/**
  * The type of an attribute.
- * 
+ *
  * @category Graph data
  */
 export type DimensionType =

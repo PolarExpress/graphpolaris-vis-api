@@ -6,10 +6,10 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { GraphQueryResult, ML, SchemaGraph } from "./types";
+import type { GraphQueryResult, ML, SchemaGraph, Settings } from ".";
 
 /**
- * @internal
+ * The base message type for all messages.
  */
 interface BaseMessage {
   /** A unique string determining the type of the message. */
@@ -69,11 +69,3 @@ export type ReceiveMessage =
  * @internal
  */
 export type SendMessage = SettingsMessage;
-
-/**
- * The type that configurations must adhere to. The keys must be strings and the values can be any JS objects that can be cloned by {@link https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm structuredClone()}.
- * @see {@link useSettings}, {@link useSettingsData}
- *
- * @category Settings
- */
-export type Settings = Record<string, unknown>;
