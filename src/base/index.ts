@@ -11,6 +11,8 @@
  *
  * @categoryDescription Graph data
  * These types are used for transferring raw graph data.
+ * @categoryDescription Schema data
+ * These types are used for transferring data about the schema.
  * @categoryDescription Message event listeners
  * These are functions to listen for specific types of messages arriving.
  */
