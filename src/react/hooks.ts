@@ -7,7 +7,8 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
-import { Settings, ReceiveMessage, SendMessage } from "./message";
+import type { ReceiveMessage } from "../base/message.types";
+import { receiveMessage, sendMessage, type Settings } from "../base";
 
 /**
  * Returns the data of the last message received,
@@ -34,29 +35,15 @@ function useMessage<
 >(typeFilter: TFilter, start?: TData) {
   const [message, setMessage] = useState(start);
 
-  function updateMessage(e: MessageEvent<ReceiveMessage>) {
-    const data = e.data;
-
-    if (data.type === typeFilter) {
-      setMessage(data.data as TData);
-    }
-  }
+  const updateMessage = (data: TData) => setMessage(data);
 
   /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
   useEffect(() => {
-    window.addEventListener("message", updateMessage);
-    return () => window.removeEventListener("message", updateMessage);
+    return receiveMessage(typeFilter, updateMessage as any);
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
 
   return useMemo(() => message, [message]);
-}
-
-/**
- * Sends a message to the parent window.
- */
-function sendMessage(message: SendMessage) {
-  window.top?.postMessage(message, "*");
 }
 
 /**
