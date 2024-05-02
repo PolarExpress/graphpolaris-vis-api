@@ -6,8 +6,14 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useContext, createContext } from "react";
 import { Settings, ReceiveMessage, SendMessage } from "./message";
+
+/**
+ * The context for providing the window object to the hooks.
+ * @category React context
+ */
+export const WindowContext = createContext<Window>(window);
 
 /**
  * Returns the data of the last message received,
@@ -32,6 +38,7 @@ function useMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
 >(typeFilter: TFilter, start?: TData) {
+  const window = useContext(WindowContext);
   const [message, setMessage] = useState(start);
 
   function updateMessage(e: MessageEvent<ReceiveMessage>) {
