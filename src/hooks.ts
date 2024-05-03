@@ -10,8 +10,42 @@ import { useEffect, useMemo, useState, useContext, createContext } from "react";
 import { Settings, ReceiveMessage, SendMessage } from "./message";
 
 /**
- * The context for providing the window object to the hooks.
- * @category React context
+ * The context for providing the window object to the hooks and components.
+ *
+ * @remarks
+ * The `WindowContext` is used to provide the correct `window` object to the hooks and components
+ * in the `vis-api` package. It allows the hooks and components to access the `window` object of the
+ * frame or environment in which they are being rendered.
+ *
+ * By default, the `WindowContext` is set to the global `window` object. However, in certain scenarios,
+ * such as when using the `vis-api` package within a Storybook environment or an iframe, the global
+ * `window` object may not be the correct one to use for message communication or other window-related
+ * operations.
+ *
+ * In such cases, the `WindowContext` can be set to the appropriate `window` object using the
+ * `WindowContext.Provider` component. This ensures that the hooks and components in the `vis-api`
+ * package have access to the correct `window` object for their environment.
+ *
+ * @example
+ * ```tsx
+ * import { WindowContext } from '@graphpolaris/vis-api';
+ *
+ * function MyComponent() {
+ *   const window = useContext(WindowContext);
+ *   // Use the window object from the context
+ *   // ...
+ * }
+ *
+ * function App() {
+ *   return (
+ *     <WindowContext.Provider value={iframe.contentWindow}>
+ *       <MyComponent />
+ *     </WindowContext.Provider>
+ *   );
+ * }
+ * ```
+ *
+ * @category React hooks
  */
 export const WindowContext = createContext<Window>(window);
 
