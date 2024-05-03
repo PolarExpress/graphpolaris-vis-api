@@ -8,7 +8,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { ReceiveMessage } from "../base/message.types";
-import { receiveMessage, sendMessage, type Settings } from "../base";
+import { type ML, type SchemaGraph, type GraphQueryResult, receiveMessage, sendMessage, type Settings } from "../base";
 
 /**
  * The context for providing the window object to the hooks and components.
@@ -110,7 +110,7 @@ function useMessage<
  *
  * @category React hooks
  */
-export function useGraphData() {
+export function useGraphData(): GraphQueryResult | undefined {
   return useMessage("GraphData");
 }
 
@@ -122,7 +122,7 @@ export function useGraphData() {
  *
  * @category React hooks
  */
-export function useMLData() {
+export function useMLData(): ML | undefined {
   return useMessage("MLData");
 }
 
@@ -221,6 +221,6 @@ export type UpdateFunction<T> = (changes: Partial<T>) => void;
  *
  * @returns A `SchemaGraph` containing the schema of the currently selected data.
  */
-export function useSchema() {
+export function useSchema(): SchemaGraph | undefined {
   return useMessage("Schema");
 }
