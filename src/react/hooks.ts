@@ -6,8 +6,9 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useEffect, useMemo, useState, useContext, createContext } from "react";
-import { Settings, ReceiveMessage, SendMessage } from "./message";
+import { useEffect, useMemo, useState } from "react";
+import type { ReceiveMessage } from "../base/message.types";
+import { type ML, type SchemaGraph, type GraphQueryResult, receiveMessage, sendMessage, type Settings } from "../base";
 
 /**
  * The context for providing the window object to the hooks and components.
@@ -53,10 +54,10 @@ export const WindowContext = createContext<Window>(window);
 
 /**
  * Returns the data of the last message received,
- * or `null` if no message has been sent yet.
+ * or `undefined` if no message has been sent yet.
  *
  * Component rerenders on receiving a new message.
- * 
+ *
  * @category React hooks
  *
  * @param typeFilter The type of messages to listen for.
@@ -66,29 +67,35 @@ function useMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
 >(typeFilter: TFilter) : TData | undefined;
+
+/**
+ * Returns the data of the last message received, or the the default value
+ *
+ * Component rerenders on receiving a new message.
+ * 
+ * @category React hooks
+ *
+ * @param typeFilter The type of messages to listen for.
+ * @param defaultValue The standard value for the state
+ * @internal
+ */
 function useMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
->(typeFilter: TFilter, start: TData) : TData;
+>(typeFilter: TFilter, defaultValue: TData) : TData;
+
 function useMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
->(typeFilter: TFilter, start?: TData) {
+>(typeFilter: TFilter, defaultValue?: TData) {
   const window = useContext(WindowContext);
-  const [message, setMessage] = useState(start);
+  const [message, setMessage] = useState(defaultValue);
 
-  function updateMessage(e: MessageEvent<ReceiveMessage>) {
-    const data = e.data;
-
-    if (data.type === typeFilter) {
-      setMessage(data.data as TData);
-    }
-  }
+  const updateMessage = (data: TData) => setMessage(data);
 
   /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
   useEffect(() => {
-    window.addEventListener("message", updateMessage);
-    return () => window.removeEventListener("message", updateMessage);
+    return receiveMessage(typeFilter, updateMessage as any);
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
 
@@ -96,21 +103,14 @@ function useMessage<
 }
 
 /**
- * Sends a message to the parent window.
- */
-function sendMessage(message: SendMessage) {
-  window.top?.postMessage(message, "*");
-}
-
-/**
  * Returns the data of the last message containing graph data.
  * that has been sent, or `null` if no such message has been sent.
  *
  * Component rerenders on receiving a new message.
- * 
+ *
  * @category React hooks
  */
-export function useGraphData() {
+export function useGraphData(): GraphQueryResult | undefined {
   return useMessage("GraphData");
 }
 
@@ -119,19 +119,19 @@ export function useGraphData() {
  * that has been sent, or `null` if no such message has been sent.
  *
  * Component rerenders on receiving a new message.
- * 
+ *
  * @category React hooks
  */
-export function useMLData() {
+export function useMLData(): ML | undefined {
   return useMessage("MLData");
 }
 
 /**
  * A react hook that fetches the configuration for this addon's instance from the GraphPolaris session. Component rerenders on receiving a new configuration.
- * 
+ *
  * @remarks
  * This hook should only be used for the visualization component. For setting components use the {@link useSettings} hook that can also push a new configuration to GraphPolaris.
- * 
+ *
  * @example
  * ```tsx
  * type VisSettings = { theme: "dark" | "light" };
@@ -143,11 +143,11 @@ export function useMLData() {
  *
  * @template T
  * The type of the configuration which must adhere to the configuration requirements.
- * 
+ *
  * @returns
  * Returns the last message containing visualization settings
  * that has been sent, or `null` if no configuration has yet been sent.
- * 
+ *
  * @category React hooks
  * @category Settings
  */
@@ -160,7 +160,7 @@ export function useSettingsData<T extends Settings>(): T | undefined {
  *
  * @remarks
  * This hook should only be used for the settings component. The update function's messages are ignored by GraphPorlaris if it is called from the visualisation component, use the {@link useSettingsData} hook instead.
- * 
+ *
  * @example
  * ```tsx
  * type VisSettings = { theme: "dark" | "light" };
@@ -176,22 +176,22 @@ export function useSettingsData<T extends Settings>(): T | undefined {
  *   </>);
  * }
  * ```
- * 
+ *
  * @category React hooks
  * @category Settings
- * 
+ *
  * @template T
  * The type of the configuration which must adhere to the configuration requirements.
  *
- * @param start
+ * @param defaultValue
  * The default configuration to start with. This configuration is shown when there is no existing configuration found in the user's save state, for instance when on the first ever install of the addon.
  * @returns
  * The current settings, and a function to update them. The function accepts a partial version of the settings, and GraphPolaris will merge the current configuration with the partially sent configuration.
  */
 export function useSettings<T extends Settings>(
-  start: T
+  defaultValue: T
 ): readonly [T, UpdateFunction<T>] {
-  const settingsData = useMessage("Settings", start);
+  const settingsData = useMessage("Settings", defaultValue);
   const sendSettings: UpdateFunction<T> = changes =>
     sendMessage({
       type: "Settings",
@@ -199,8 +199,8 @@ export function useSettings<T extends Settings>(
     });
 
   useEffect(() => {
-    sendSettings(start);
-  }, [start]);
+    sendSettings(defaultValue);
+  }, [defaultValue]);
 
   return [settingsData, sendSettings];
 }
@@ -216,11 +216,11 @@ export type UpdateFunction<T> = (changes: Partial<T>) => void;
  * that has been sent, or `null` if no such message has been sent.
  *
  * Component rerenders on receiving a new message.
- * 
+ *
  * @category React hooks
  *
  * @returns A `SchemaGraph` containing the schema of the currently selected data.
  */
-export function useSchema() {
+export function useSchema(): SchemaGraph | undefined {
   return useMessage("Schema");
 }

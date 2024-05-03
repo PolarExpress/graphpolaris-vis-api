@@ -1,14 +1,14 @@
 {
-    "$schema": "https://typedoc.org/schema.json",
-    "name": "@graphpolaris/vis-api",
-    "entryPoints": ["./index.ts"],
-    "categorizeByGroup": false,
-    "gitRemote": "origin",
-    "searchCategoryBoosts": {
-        "React hooks": 2
-    },
-    "excludeInternal": true,
-    "navigationLinks": {
-        "GitHub": "https://github.com/PolarExpress/graphpolaris-vis-api"
-    }
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "@graphpolaris/vis-api",
+  "entryPoints": ["./src/react/index.ts", "./src/base/index.ts"],
+  "categorizeByGroup": false,
+  "gitRemote": "origin",
+  "searchCategoryBoosts": {
+    "React hooks": 2
+  },
+  "excludeInternal": true,
+  "navigationLinks": {
+    "GitHub": "https://github.com/PolarExpress/graphpolaris-vis-api"
+  }
 }

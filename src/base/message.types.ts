@@ -6,14 +6,10 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type {
-  GraphQueryResult,
-  ML,
-  SchemaGraph
-} from "./graphpolaris.types";
+import type { GraphQueryResult, ML, SchemaGraph, Settings } from ".";
 
 /**
- * @internal
+ * The base message type for all messages.
  */
 interface BaseMessage {
   /** A unique string determining the type of the message. */
@@ -62,18 +58,14 @@ export interface SchemaMessage extends BaseMessage {
  * The types of messages that an add-on can receive.
  * @internal
  */
-export type ReceiveMessage = GraphMessage | MLMessage | SettingsMessage | SchemaMessage;
+export type ReceiveMessage =
+  | GraphMessage
+  | MLMessage
+  | SettingsMessage
+  | SchemaMessage;
 
 /**
  * The types of messages that an add-on can send.
  * @internal
  */
 export type SendMessage = SettingsMessage;
-
-/**
- * The type that configurations must adhere to. The keys must be strings and the values can be any JS objects that can be cloned by {@link https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm structuredClone()}.
- * @see {@link useSettings}, {@link useSettingsData}
- * 
- * @category Settings
- */
-export type Settings = Record<string, unknown>;

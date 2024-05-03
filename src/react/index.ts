@@ -7,13 +7,12 @@
  */
 
 /**
- * @packageDocumentation
+ * @packageDocumentation Contains React bindings for the GraphPolaris visualisation plugin API.
+ *
  * @categoryDescription React hooks
  * These functions are designed to work as react hooks, they will cause a rerender if the value that is returned is updated by GraphPolaris.
- * 
  * @categoryDescription Settings
  * All functions and types that are related to building a settings interface for a visualisation.
  */
 
-export * from "./src/hooks";
-export * from "./src/message";
+export * from "./hooks";

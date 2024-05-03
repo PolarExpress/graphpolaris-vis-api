@@ -2,7 +2,10 @@
   "name": "@graphpolaris/vis-api",
   "version": "1.0.0",
   "description": "API for messages for visualization add-ons for GraphPolaris.",
-  "main": "index.ts",
+  "exports": {
+    "./react": "./src/react/index.ts",
+    ".": "./src/base/index.ts"
+  },
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint .",
