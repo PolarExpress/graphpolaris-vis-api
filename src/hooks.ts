@@ -46,6 +46,8 @@ import { Settings, ReceiveMessage, SendMessage } from "./message";
  * ```
  *
  * @category React hooks
+ * 
+ * @internal
  */
 export const WindowContext = createContext<Window>(window);
 
