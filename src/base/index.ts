@@ -22,3 +22,4 @@ export * from "./graphQueryResult.types";
 export * from "./machineLearning.types";
 export * from "./schema.types";
 export * from "./settings.types";
+export * from "./message.types";
