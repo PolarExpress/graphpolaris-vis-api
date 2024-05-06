@@ -8,21 +8,21 @@ import { DimensionType } from "./graphQueryResult.types";
 
 /**
  * A node inside a schema graph.
- * 
- * @category Schema data
+ *
+ * @category Schema data.
  */
 export type SchemaGraphologyNode = GAttributes & SchemaNode;
 /**
  * An edge inside a schema graph.
- * 
- * @category Schema data
+ *
+ * @category Schema data.
  */
 export type SchemaGraphologyEdge = GAttributes;
 
 /**
  * A graph containing the database schema.
- * 
- * @category Schema data
+ *
+ * @category Schema data.
  */
 export type SchemaGraph = SerializedGraph<
   SchemaGraphologyNode,
@@ -32,8 +32,8 @@ export type SchemaGraph = SerializedGraph<
 
 /**
  * The possible attribute types for a schema.
- * 
- * @category Schema data
+ *
+ * @category Schema data.
  */
 export type SchemaAttributeTypes =
   | "string"
@@ -47,8 +47,8 @@ export type SchemaAttributeTypes =
 
 /**
  * A single attribute on a node in a schema graph.
- * 
- * @category Schema data
+ *
+ * @category Schema data.
  */
 export type SchemaAttribute = {
   /**
@@ -65,10 +65,10 @@ export type SchemaAttribute = {
   dimension?: DimensionType;
 };
 
-/** 
+/**
  * A basic node inside a schema graph.
- * 
- * @category Schema data
+ *
+ * @category Schema data.
  */
 export type SchemaNode = {
   /**

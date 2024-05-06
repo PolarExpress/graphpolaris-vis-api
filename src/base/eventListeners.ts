@@ -12,14 +12,16 @@ import type { ReceiveMessage, SendMessage } from "./message.types";
 /**
  * Performs an action everytime a message of the specified type is received.
  *
- * @param typeFilter The type of messages to listen for.
- * @param callback The action to perform an receiving a message.
- * @param windowContext The window to attach to.
+ * @category Message event listeners.
  *
- * @returns A function to unsubscribe from the message event listener.
+ * @param   typeFilter    The type of messages to listen for.
+ * @param   callback      The action to perform an receiving a message.
+ * @param   windowContext The window to attach to.
+ *
+ * @returns               A function to unsubscribe from the message event
+ *   listener.
  *
  * @internal
- * @category Message event listeners
  */
 export function receiveMessage<
   TFilter extends ReceiveMessage["type"],
@@ -43,11 +45,11 @@ export function receiveMessage<
 /**
  * Performs an action everytime a message with graph data is received.
  *
- * @param callback The action to perform an receiving a message.
+ * @category Message event listeners.
  *
- * @returns A function to unsubscribe from the message event listener.
+ * @param   callback The action to perform an receiving a message.
  *
- * @category Message event listeners
+ * @returns          A function to unsubscribe from the message event listener.
  */
 export function receiveGraphData(callback: (data: GraphQueryResult) => void) {
   return receiveMessage("GraphData", callback);
@@ -56,11 +58,11 @@ export function receiveGraphData(callback: (data: GraphQueryResult) => void) {
 /**
  * Performs an action everytime a message with settings is received.
  *
- * @param callback The action to perform an receiving a message.
+ * @category Message event listeners.
  *
- * @returns A function to unsubscribe from the message event listener.
+ * @param   callback The action to perform an receiving a message.
  *
- * @category Message event listeners
+ * @returns          A function to unsubscribe from the message event listener.
  */
 export function receiveSettings(callback: (data: Settings) => void) {
   return receiveMessage("Settings", callback);
@@ -69,24 +71,25 @@ export function receiveSettings(callback: (data: Settings) => void) {
 /**
  * Performs an action everytime a message with a schema graph is received.
  *
- * @param callback The action to perform an receiving a message.
+ * @category Message event listeners.
  *
- * @returns A function to unsubscribe from the message event listener.
+ * @param   callback The action to perform an receiving a message.
  *
- * @category Message event listeners
+ * @returns          A function to unsubscribe from the message event listener.
  */
 export function receiveSchema(callback: (data: SchemaGraph) => void) {
   return receiveMessage("Schema", callback);
 }
 
 /**
- * Performs an action everytime a message with machine learning data is received.
+ * Performs an action everytime a message with machine learning data is
+ * received.
  *
- * @param callback The action to perform an receiving a message.
+ * @category Message event listeners.
  *
- * @returns A function to unsubscribe from the message event listener.
+ * @param   callback The action to perform an receiving a message.
  *
- * @category Message event listeners
+ * @returns          A function to unsubscribe from the message event listener.
  */
 export function receiveMLData(callback: (data: ML) => void) {
   return receiveMessage("MLData", callback);
@@ -95,10 +98,11 @@ export function receiveMLData(callback: (data: ML) => void) {
 /**
  * Sends a message to the GraphPolaris frontend.
  *
+ * @category Message event listeners.
+ *
  * @param message The message to send.
  *
  * @internal
- * @category Message event listeners
  */
 export function sendMessage(message: SendMessage) {
   window.top?.postMessage(message, "*");
@@ -107,9 +111,10 @@ export function sendMessage(message: SendMessage) {
 /**
  * Send a message with updated settings to the GraphPolaris frontend.
  *
- * @param settings The updated settings to send. Only the modified settings need to be sent.
+ * @category Message event listeners.
  *
- * @category Message event listeners
+ * @param settings The updated settings to send. Only the modified settings need
+ *   to be sent.
  */
 export function sendSettings(settings: Settings) {
   sendMessage({
