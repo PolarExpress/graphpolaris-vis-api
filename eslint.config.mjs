@@ -22,11 +22,11 @@ const rule = {
       " ";
     return {
       Program(node) {
-        if (!node.body.length) return;
+        if (node.body.length === 0) return;
         const comments = context.sourceCode.getCommentsBefore(node.body[0]);
         if (
           !(
-            comments.length &&
+            comments.length > 0 &&
             comments[0].range[0] === 0 &&
             comments[0].value === commentText
           )
@@ -71,12 +71,25 @@ export default [
   prettier,
   eslint.configs.recommended,
   ...compat.extends(
+    "plugin:unicorn/recommended",
     "plugin:perfectionist/recommended-natural",
+    "plugin:eslint-comments/recommended",
     "react-app"
   ),
   {
     rules: {
-      "import/no-anonymous-default-export": "off"
+      "eslint-comments/disable-enable-pair": [
+        "error",
+        { allowWholeFile: true }
+      ],
+      "import/no-anonymous-default-export": "off",
+      "unicorn/consistent-function-scoping": "off",
+      "unicorn/filename-case": [
+        "error",
+        {
+          case: "camelCase"
+        }
+      ]
     }
   },
   {
