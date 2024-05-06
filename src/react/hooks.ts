@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useContext, createContext } from "react";
 import type { ReceiveMessage } from "../base/message.types";
 import type { ML, SchemaGraph, GraphQueryResult, Settings } from "../base";
 import { receiveMessage, sendMessage } from "../base";
