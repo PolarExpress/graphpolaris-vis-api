@@ -14,6 +14,7 @@ import type { ReceiveMessage, SendMessage } from "./message.types";
  *
  * @param typeFilter The type of messages to listen for.
  * @param callback The action to perform an receiving a message.
+ * @param windowContext The window to attach to.
  *
  * @returns A function to unsubscribe from the message event listener.
  *
@@ -23,16 +24,20 @@ import type { ReceiveMessage, SendMessage } from "./message.types";
 export function receiveMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"]
->(typeFilter: TFilter, callback: (data: TData) => void): () => void {
+>(
+  typeFilter: TFilter,
+  callback: (data: TData) => void,
+  windowContext: Window = window
+): () => void {
   function updateMessage(e: MessageEvent<ReceiveMessage>) {
     const data = e.data;
 
     if (data.type === typeFilter) callback(data.data as TData);
   }
 
-  window.addEventListener("message", updateMessage);
+  windowContext.addEventListener("message", updateMessage);
 
-  return () => window.removeEventListener("message", updateMessage);
+  return () => windowContext.removeEventListener("message", updateMessage);
 }
 
 /**

@@ -8,7 +8,8 @@
 
 import { useEffect, useMemo, useState, useContext, createContext } from "react";
 import type { ReceiveMessage } from "../base/message.types";
-import { type ML, type SchemaGraph, type GraphQueryResult, receiveMessage, sendMessage, type Settings } from "../base";
+import type { ML, SchemaGraph, GraphQueryResult, Settings } from "../base";
+import { receiveMessage, sendMessage } from "../base";
 
 /**
  * The context for providing the window object to the hooks and components.
@@ -47,7 +48,7 @@ import { type ML, type SchemaGraph, type GraphQueryResult, receiveMessage, sendM
  * ```
  *
  * @category React hooks
- * 
+ *
  * @internal
  */
 export const WindowContext = createContext<Window>(window);
@@ -65,28 +66,28 @@ export const WindowContext = createContext<Window>(window);
  */
 function useMessage<
   TFilter extends ReceiveMessage["type"],
-  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
->(typeFilter: TFilter) : TData | undefined;
+  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"]
+>(typeFilter: TFilter): TData | undefined;
 
 /**
  * Returns the data of the last message received, or the the default value
  *
  * Component rerenders on receiving a new message.
- * 
+ *
  * @category React hooks
  *
  * @param typeFilter The type of messages to listen for.
- * @param defaultValue The standard value for the state
+ * @param defaultValue The standard value for the state.
  * @internal
  */
 function useMessage<
   TFilter extends ReceiveMessage["type"],
-  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
->(typeFilter: TFilter, defaultValue: TData) : TData;
+  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"]
+>(typeFilter: TFilter, defaultValue: TData): TData;
 
 function useMessage<
   TFilter extends ReceiveMessage["type"],
-  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
+  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"]
 >(typeFilter: TFilter, defaultValue?: TData) {
   const window = useContext(WindowContext);
   const [message, setMessage] = useState(defaultValue);
@@ -95,7 +96,7 @@ function useMessage<
 
   /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
   useEffect(() => {
-    return receiveMessage(typeFilter, updateMessage as any);
+    return receiveMessage(typeFilter, updateMessage as any, window);
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
 
