@@ -6,9 +6,11 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useEffect, useMemo, useState, useContext, createContext } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+
+import type { GraphQueryResult, ML, SchemaGraph, Settings } from "../base";
 import type { ReceiveMessage } from "../base/message.types";
-import type { ML, SchemaGraph, GraphQueryResult, Settings } from "../base";
+
 import { receiveMessage, sendMessage } from "../base";
 
 /**
@@ -205,8 +207,8 @@ export function useSettings<T extends Settings>(
   const settingsData = useMessage("Settings", defaultValue);
   const sendSettings: UpdateFunction<T> = changes =>
     sendMessage({
-      type: "Settings",
-      data: changes
+      data: changes,
+      type: "Settings"
     });
 
   useEffect(() => {

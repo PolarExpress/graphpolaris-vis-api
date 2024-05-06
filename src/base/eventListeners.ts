@@ -118,7 +118,7 @@ export function sendMessage(message: SendMessage) {
  */
 export function sendSettings(settings: Settings) {
   sendMessage({
-    type: "Settings",
-    data: settings
+    data: settings,
+    type: "Settings"
   });
 }

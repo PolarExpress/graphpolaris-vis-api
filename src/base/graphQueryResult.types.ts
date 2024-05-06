@@ -7,6 +7,10 @@
  */
 export interface GraphQueryResult {
   /**
+   * Lists all the edges in the graph.
+   */
+  edges: Edge[];
+  /**
    * Metadata about the graph.
    */
   metaData: GraphMetaData;
@@ -14,10 +18,6 @@ export interface GraphQueryResult {
    * Lists all the nodes in the graph.
    */
   nodes: Node[];
-  /**
-   * Lists all the edges in the graph.
-   */
-  edges: Edge[];
   /**
    * Whether or not the operation of querying for graph data is still in
    * progress.
@@ -32,15 +32,15 @@ export interface GraphQueryResult {
  */
 export interface Node {
   /**
+   * Additional attributes associated with the node.
+   */
+  attributes: Record<string, unknown>;
+  /**
    * The ID of the node. Unique within the graph it is contained in.
    */
   id: string;
   // TODO: document.
   label: string;
-  /**
-   * Additional attributes associated with the node.
-   */
-  attributes: Record<string, unknown>;
   // TODO: document.
   mldata?: any; // FIXME
   /* type: string[]; */
@@ -51,25 +51,25 @@ export interface Node {
  */
 export interface Edge {
   /**
-   * The ID of the edge. Unique within the graph.
+   * Additional attributes associated with the edge.
    */
-  id: string;
+  attributes: Record<string, unknown>;
   /**
    * The ID of the source node of the edge. Refers to {@link Node.id} of a node
    * within the graph.
    */
   from: string;
   /**
+   * The ID of the edge. Unique within the graph.
+   */
+  id: string;
+  // TODO: document.
+  label: string;
+  /**
    * The ID of the target node of the edge. Refers to {@link Node.id} of a node
    * within the graph.
    */
   to: string;
-  // TODO: document.
-  label: string;
-  /**
-   * Additional attributes associated with the edge.
-   */
-  attributes: Record<string, unknown>;
   /* type: string; */
 }
 
@@ -80,17 +80,17 @@ export interface Edge {
  */
 export type GraphMetaData = {
   /**
-   * Metadata about the nodes in the graph.
-   *
-   * @see {@link GraphQueryResult.nodes}
-   */
-  nodes: CompressedElement;
-  /**
    * Metadata about the edges in the graph.
    *
    * @see {@link GraphQueryResult.edges}
    */
   edges: CompressedElement;
+  /**
+   * Metadata about the nodes in the graph.
+   *
+   * @see {@link GraphQueryResult.nodes}
+   */
+  nodes: CompressedElement;
 };
 
 /**
@@ -122,9 +122,9 @@ export type CompressedElement = {
  */
 export interface ElementTypeMetadata {
   /**
-   * The number of elements with this label.
+   * Additional attributes associated with the elements.
    */
-  count: number;
+  attributes: Record<string, ElementTypeAttributes>;
   /**
    * The average in-degree of elements with this label, if applicable.
    */
@@ -134,9 +134,9 @@ export interface ElementTypeMetadata {
    */
   avgDegreeOut?: number;
   /**
-   * Additional attributes associated with the elements.
+   * The number of elements with this label.
    */
-  attributes: Record<string, ElementTypeAttributes>;
+  count: number;
 }
 
 /**
@@ -150,13 +150,13 @@ export interface ElementTypeAttributes {
    */
   dimension: DimensionType;
   /**
-   * The values of the attribute, associated with this label, if applicable.
-   */
-  values?: unknown[];
-  /**
    * The statistics associated with the attribute, if applicable.
    */
   statistics?: unknown;
+  /**
+   * The values of the attribute, associated with this label, if applicable.
+   */
+  values?: unknown[];
 }
 
 /**
@@ -167,5 +167,5 @@ export interface ElementTypeAttributes {
 export type DimensionType =
   | "categorical"
   | "numerical"
-  | "temporal"
-  | "spatial";
+  | "spatial"
+  | "temporal";
