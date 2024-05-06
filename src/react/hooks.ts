@@ -6,13 +6,56 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { ReceiveMessage } from "../base/message.types";
-import { receiveMessage, sendMessage, type Settings } from "../base";
+import type { ML, SchemaGraph, GraphQueryResult, Settings } from "../base";
+import { receiveMessage, sendMessage } from "../base";
+
+/**
+ * The context for providing the window object to the hooks and components.
+ *
+ * @remarks
+ * The `WindowContext` is used to provide the correct `window` object to the hooks and components
+ * in the `vis-api` package. It allows the hooks and components to access the `window` object of the
+ * frame or environment in which they are being rendered.
+ *
+ * By default, the `WindowContext` is set to the global `window` object. However, in certain scenarios,
+ * such as when using the `vis-api` package within a Storybook environment or an iframe, the global
+ * `window` object may not be the correct one to use for message communication or other window-related
+ * operations.
+ *
+ * In such cases, the `WindowContext` can be set to the appropriate `window` object using the
+ * `WindowContext.Provider` component. This ensures that the hooks and components in the `vis-api`
+ * package have access to the correct `window` object for their environment.
+ *
+ * @example
+ * ```tsx
+ * import { WindowContext } from '@graphpolaris/vis-api';
+ *
+ * function MyComponent() {
+ *   const window = useContext(WindowContext);
+ *   // Use the window object from the context
+ *   // ...
+ * }
+ *
+ * function App() {
+ *   return (
+ *     <WindowContext.Provider value={iframe.contentWindow}>
+ *       <MyComponent />
+ *     </WindowContext.Provider>
+ *   );
+ * }
+ * ```
+ *
+ * @category React hooks
+ * 
+ * @internal
+ */
+export const WindowContext = createContext<Window>(window);
 
 /**
  * Returns the data of the last message received,
- * or `null` if no message has been sent yet.
+ * or `undefined` if no message has been sent yet.
  *
  * Component rerenders on receiving a new message.
  *
@@ -23,17 +66,31 @@ import { receiveMessage, sendMessage, type Settings } from "../base";
  */
 function useMessage<
   TFilter extends ReceiveMessage["type"],
-  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"]
->(typeFilter: TFilter): TData | undefined;
+  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
+>(typeFilter: TFilter) : TData | undefined;
+
+/**
+ * Returns the data of the last message received, or the the default value
+ *
+ * Component rerenders on receiving a new message.
+ * 
+ * @category React hooks
+ *
+ * @param typeFilter The type of messages to listen for.
+ * @param defaultValue The standard value for the state
+ * @internal
+ */
 function useMessage<
   TFilter extends ReceiveMessage["type"],
-  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"]
->(typeFilter: TFilter, start: TData): TData;
+  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
+>(typeFilter: TFilter, defaultValue: TData) : TData;
+
 function useMessage<
   TFilter extends ReceiveMessage["type"],
-  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"]
->(typeFilter: TFilter, start?: TData) {
-  const [message, setMessage] = useState(start);
+  TData extends Extract<ReceiveMessage, { type: TFilter }>["data"],
+>(typeFilter: TFilter, defaultValue?: TData) {
+  const window = useContext(WindowContext);
+  const [message, setMessage] = useState(defaultValue);
 
   const updateMessage = (data: TData) => setMessage(data);
 
@@ -54,7 +111,7 @@ function useMessage<
  *
  * @category React hooks
  */
-export function useGraphData() {
+export function useGraphData(): GraphQueryResult | undefined {
   return useMessage("GraphData");
 }
 
@@ -66,7 +123,7 @@ export function useGraphData() {
  *
  * @category React hooks
  */
-export function useMLData() {
+export function useMLData(): ML | undefined {
   return useMessage("MLData");
 }
 
@@ -127,15 +184,15 @@ export function useSettingsData<T extends Settings>(): T | undefined {
  * @template T
  * The type of the configuration which must adhere to the configuration requirements.
  *
- * @param start
+ * @param defaultValue
  * The default configuration to start with. This configuration is shown when there is no existing configuration found in the user's save state, for instance when on the first ever install of the addon.
  * @returns
  * The current settings, and a function to update them. The function accepts a partial version of the settings, and GraphPolaris will merge the current configuration with the partially sent configuration.
  */
 export function useSettings<T extends Settings>(
-  start: T
+  defaultValue: T
 ): readonly [T, UpdateFunction<T>] {
-  const settingsData = useMessage("Settings", start);
+  const settingsData = useMessage("Settings", defaultValue);
   const sendSettings: UpdateFunction<T> = changes =>
     sendMessage({
       type: "Settings",
@@ -143,8 +200,8 @@ export function useSettings<T extends Settings>(
     });
 
   useEffect(() => {
-    sendSettings(start);
-  }, [start]);
+    sendSettings(defaultValue);
+  }, [defaultValue]);
 
   return [settingsData, sendSettings];
 }
@@ -165,6 +222,6 @@ export type UpdateFunction<T> = (changes: Partial<T>) => void;
  *
  * @returns A `SchemaGraph` containing the schema of the currently selected data.
  */
-export function useSchema() {
+export function useSchema(): SchemaGraph | undefined {
   return useMessage("Schema");
 }
