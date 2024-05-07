@@ -12,14 +12,19 @@ import type { GraphQueryResult, ML, SchemaGraph, Settings } from ".";
  * The base message type for all messages.
  */
 interface BaseMessage {
-  /** A unique string determining the type of the message. */
+  /**
+   * A unique string determining the type of the message.
+   */
   type: string;
-  /** The data sent with the message. */
+  /**
+   * The data sent with the message.
+   */
   data: unknown;
 }
 
 /**
  * A message containing the result from the graph query.
+ *
  * @internal
  */
 export interface GraphMessage extends BaseMessage {
@@ -29,6 +34,7 @@ export interface GraphMessage extends BaseMessage {
 
 /**
  * A message containing the results from machine learning algorithms.
+ *
  * @internal
  */
 export interface MLMessage extends BaseMessage {
@@ -38,6 +44,7 @@ export interface MLMessage extends BaseMessage {
 
 /**
  * A message containing visualization settings.
+ *
  * @internal
  */
 export interface SettingsMessage extends BaseMessage {
@@ -47,6 +54,7 @@ export interface SettingsMessage extends BaseMessage {
 
 /**
  * A message containing the schema graph.
+ *
  * @internal
  */
 export interface SchemaMessage extends BaseMessage {
@@ -56,6 +64,7 @@ export interface SchemaMessage extends BaseMessage {
 
 /**
  * The types of messages that an add-on can receive.
+ *
  * @internal
  */
 export type ReceiveMessage =
@@ -66,6 +75,7 @@ export type ReceiveMessage =
 
 /**
  * The types of messages that an add-on can send.
+ *
  * @internal
  */
 export type SendMessage = SettingsMessage;

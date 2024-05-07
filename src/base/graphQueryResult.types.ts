@@ -3,7 +3,7 @@
 /**
  * The raw graph data from the query.
  *
- * @category Graph data
+ * @category Graph data.
  */
 export interface GraphQueryResult {
   /**
@@ -19,7 +19,8 @@ export interface GraphQueryResult {
    */
   edges: Edge[];
   /**
-   * Whether or not the operation of querying for graph data is still in progress.
+   * Whether or not the operation of querying for graph data is still in
+   * progress.
    */
   queryingBackend: boolean;
 }
@@ -27,7 +28,7 @@ export interface GraphQueryResult {
 /**
  * A single node inside a graph.
  *
- * @category Graph data
+ * @category Graph data.
  */
 export interface Node {
   /**
@@ -54,11 +55,13 @@ export interface Edge {
    */
   id: string;
   /**
-   * The ID of the source node of the edge. Refers to {@link Node.id} of a node within the graph.
+   * The ID of the source node of the edge. Refers to {@link Node.id} of a node
+   * within the graph.
    */
   from: string;
   /**
-   * The ID of the target node of the edge. Refers to {@link Node.id} of a node within the graph.
+   * The ID of the target node of the edge. Refers to {@link Node.id} of a node
+   * within the graph.
    */
   to: string;
   // TODO: document.
@@ -73,7 +76,7 @@ export interface Edge {
 /**
  * Metadata associated with a graph.
  *
- * @category Graph data
+ * @category Graph data.
  */
 export type GraphMetaData = {
   /**
@@ -93,7 +96,7 @@ export type GraphMetaData = {
 /**
  * Contains metadata about either nodes or edges.
  *
- * @category Graph data
+ * @category Graph data.
  */
 // FIXME: make better different types for nodes and edges.
 export type CompressedElement = {
@@ -115,7 +118,7 @@ export type CompressedElement = {
 /**
  * Metadata associated with a group of elements.
  *
- * @category Graph data
+ * @category Graph data.
  */
 export interface ElementTypeMetadata {
   /**
@@ -139,7 +142,7 @@ export interface ElementTypeMetadata {
 /**
  * Attributes associated with a group of elements.
  *
- * @category Graph data
+ * @category Graph data.
  */
 export interface ElementTypeAttributes {
   /**
@@ -159,7 +162,7 @@ export interface ElementTypeAttributes {
 /**
  * The type of an attribute.
  *
- * @category Graph data
+ * @category Graph data.
  */
 export type DimensionType =
   | "categorical"
