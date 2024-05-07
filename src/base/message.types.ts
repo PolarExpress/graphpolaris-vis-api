@@ -62,6 +62,11 @@ export interface SchemaMessage extends BaseMessage {
   type: "Schema";
 }
 
+export interface SettingsRequestMessage extends BaseMessage {
+  type: "SettingsRequest";
+  data: undefined;
+}
+
 /**
  * The types of messages that an add-on can receive.
  *
@@ -70,8 +75,9 @@ export interface SchemaMessage extends BaseMessage {
 export type ReceiveMessage =
   | GraphMessage
   | MLMessage
+  | SettingsMessage
   | SchemaMessage
-  | SettingsMessage;
+  | SettingsRequestMessage;
 
 /**
  * The types of messages that an add-on can send.

@@ -211,9 +211,7 @@ export function useSettings<T extends Settings>(
       type: "Settings"
     });
 
-  useEffect(() => {
-    sendSettings(defaultValue);
-  }, [defaultValue]);
+  receiveMessage("SettingsRequest", () => sendSettings(defaultValue));
 
   return [settingsData, sendSettings];
 }
