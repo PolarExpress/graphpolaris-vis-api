@@ -30,6 +30,7 @@ export default [
       "perfectionist/sort-object-types": "off",
       "unicorn/consistent-function-scoping": "off",
       "unicorn/no-abusive-eslint-disable": "off"
-    }
+    },
+    ignores: ["docs/**", "dist/**"]
   }
 ];

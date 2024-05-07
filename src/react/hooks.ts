@@ -6,12 +6,16 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-
-import type { GraphQueryResult, ML, SchemaGraph, Settings } from "../base";
+import { useEffect, useMemo, useState, useContext, createContext } from "react";
 import type { ReceiveMessage } from "../internal";
-
-import { receiveMessage, sendMessage } from "../base";
+import {
+  type ML,
+  type SchemaGraph,
+  type GraphQueryResult,
+  receiveMessage,
+  sendMessage,
+  type Settings
+} from "../base";
 
 /**
  * The context for providing the window object to the hooks and components.

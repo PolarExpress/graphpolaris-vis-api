@@ -7,13 +7,11 @@
  */
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Used for documentation.
-import { useSettings, useSettingsData } from "../react";
+import { receiveSettings } from "./eventListeners";
 
 /**
- * The type that configurations must adhere to. The keys must be strings and the
- * values can be any JS objects that can be cloned by
- * {@link https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm structuredClone()}.
+ * The type that configurations must adhere to. The keys must be strings and the values can be any JS objects that can be cloned by {@link https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm structuredClone()}.
  *
- * @see {@link useSettings} , {@link useSettingsData}
+ * @see {@link receiveSettings}
  */
 export type Settings = Record<string, unknown>;

@@ -42,7 +42,7 @@ export interface Node {
    */
   attributes: Record<string, unknown>;
   // TODO: document.
-  mldata?: any; // FIXME
+  mldata?: unknown; // FIXME
   /* type: string[]; */
 }
 
