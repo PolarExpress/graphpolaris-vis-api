@@ -62,6 +62,12 @@ export interface SchemaMessage extends BaseMessage {
   type: "Schema";
 }
 
+/**
+ * A message that is sent from the frontend to request the default config. The
+ * response should be a {@link SettingsMessage}.
+ *
+ * @internal
+ */
 export interface SettingsRequestMessage extends BaseMessage {
   type: "SettingsRequest";
   data: undefined;
