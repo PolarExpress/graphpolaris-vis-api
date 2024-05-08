@@ -81,8 +81,8 @@ export interface SettingsRequestMessage extends BaseMessage {
 export type ReceiveMessage =
   | GraphMessage
   | MLMessage
-  | SettingsMessage
   | SchemaMessage
+  | SettingsMessage
   | SettingsRequestMessage;
 
 /**
