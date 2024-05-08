@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    types: ["opened", "synchronize", "reopened", "ready_for_review"]
+    branches: ["main"]
+
+jobs:
+  build:
+    name: tsc (type check)
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up environment
+        uses: ./.github/actions/ci-env
+
+      - name: Build project
+        run: pnpm type-check
+
+  eslint:
+    name: ESLint (linting)
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up environment
+        uses: ./.github/actions/ci-env
+
+      - name: Run linter
+        run: pnpm lint
+
+  prettier:
+    name: Prettier (formatting)
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up environment
+        uses: ./.github/actions/ci-env
+
+      - name: Run Prettier
+        run: npx prettier --check .

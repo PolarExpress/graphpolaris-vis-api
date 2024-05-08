@@ -48,8 +48,8 @@ export interface MLMessage extends BaseMessage {
  * @internal
  */
 export interface SettingsMessage extends BaseMessage {
-  type: "Settings";
   data: Settings;
+  type: "Settings";
 }
 
 /**
@@ -58,8 +58,8 @@ export interface SettingsMessage extends BaseMessage {
  * @internal
  */
 export interface SchemaMessage extends BaseMessage {
-  type: "Schema";
   data: SchemaGraph;
+  type: "Schema";
 }
 
 /**
@@ -70,8 +70,8 @@ export interface SchemaMessage extends BaseMessage {
 export type ReceiveMessage =
   | GraphMessage
   | MLMessage
-  | SettingsMessage
-  | SchemaMessage;
+  | SchemaMessage
+  | SettingsMessage;
 
 /**
  * The types of messages that an add-on can send.

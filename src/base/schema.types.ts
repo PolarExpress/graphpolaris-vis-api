@@ -4,6 +4,7 @@ import type {
   Attributes as GAttributes,
   SerializedGraph
 } from "graphology-types";
+
 import { DimensionType } from "./graphQueryResult.types";
 
 /**
@@ -36,14 +37,14 @@ export type SchemaGraph = SerializedGraph<
  * @category Schema data.
  */
 export type SchemaAttributeTypes =
-  | "string"
-  | "float"
-  | "int"
   | "bool"
   | "date"
-  | "time"
   | "datetime"
-  | "duration";
+  | "duration"
+  | "float"
+  | "int"
+  | "string"
+  | "time";
 
 /**
  * A single attribute on a node in a schema graph.
@@ -76,11 +77,11 @@ export type SchemaNode = {
    */
   name: string;
   /**
-   * A list of attributes of the node.
-   */
-  attributes: SchemaAttribute[];
-  /**
    * The type of the node, if applicable.
    */
   type?: string;
+  /**
+   * A list of attributes of the node.
+   */
+  attributes: SchemaAttribute[];
 };

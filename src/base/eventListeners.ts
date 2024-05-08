@@ -31,8 +31,8 @@ export function receiveMessage<
   callback: (data: TData) => void,
   windowContext: Window = window
 ): () => void {
-  function updateMessage(e: MessageEvent<ReceiveMessage>) {
-    const data = e.data;
+  function updateMessage(event: MessageEvent<ReceiveMessage>) {
+    const data = event.data;
 
     if (data.type === typeFilter) callback(data.data as TData);
   }
@@ -118,7 +118,7 @@ export function sendMessage(message: SendMessage) {
  */
 export function sendSettings(settings: Settings) {
   sendMessage({
-    type: "Settings",
-    data: settings
+    data: settings,
+    type: "Settings"
   });
 }
