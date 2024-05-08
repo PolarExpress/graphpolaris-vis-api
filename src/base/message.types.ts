@@ -13,13 +13,13 @@ import type { GraphQueryResult, ML, SchemaGraph, Settings } from ".";
  */
 interface BaseMessage {
   /**
-   * The data sent with the message.
-   */
-  data: unknown;
-  /**
    * A unique string determining the type of the message.
    */
   type: string;
+  /**
+   * The data sent with the message.
+   */
+  data: unknown;
 }
 
 /**
@@ -28,8 +28,8 @@ interface BaseMessage {
  * @internal
  */
 export interface GraphMessage extends BaseMessage {
-  data: GraphQueryResult;
   type: "GraphData";
+  data: GraphQueryResult;
 }
 
 /**
@@ -38,8 +38,8 @@ export interface GraphMessage extends BaseMessage {
  * @internal
  */
 export interface MLMessage extends BaseMessage {
-  data: ML;
   type: "MLData";
+  data: ML;
 }
 
 /**

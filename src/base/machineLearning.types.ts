@@ -20,10 +20,10 @@ export type MLInstance<T> = {
 };
 
 export type LinkPredictionInstance = {
-  attributes: { jaccard_coefficient: number };
-  from: string;
   id: string;
+  from: string;
   to: string;
+  attributes: { jaccard_coefficient: number };
 };
 
 export type CommunityDetectionInstance = string[]; // set of ids

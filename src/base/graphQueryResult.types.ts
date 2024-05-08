@@ -11,13 +11,13 @@ export interface GraphQueryResult {
    */
   edges: Edge[];
   /**
-   * Metadata about the graph.
-   */
-  metaData: GraphMetaData;
-  /**
    * Lists all the nodes in the graph.
    */
   nodes: Node[];
+  /**
+   * Metadata about the graph.
+   */
+  metaData: GraphMetaData;
   /**
    * Whether or not the operation of querying for graph data is still in
    * progress.
@@ -32,15 +32,15 @@ export interface GraphQueryResult {
  */
 export interface Node {
   /**
-   * Additional attributes associated with the node.
-   */
-  attributes: Record<string, unknown>;
-  /**
    * The ID of the node. Unique within the graph it is contained in.
    */
   id: string;
   // TODO: document.
   label: string;
+  /**
+   * Additional attributes associated with the node.
+   */
+  attributes: Record<string, unknown>;
   // TODO: document.
   mldata?: any; // FIXME
   /* type: string[]; */

@@ -53,10 +53,6 @@ export type SchemaAttributeTypes =
  */
 export type SchemaAttribute = {
   /**
-   * The dimension of the attribute, if applicable.
-   */
-  dimension?: DimensionType;
-  /**
    * The name of the attribute.
    */
   name: string;
@@ -64,6 +60,10 @@ export type SchemaAttribute = {
    * The type of the attribute.
    */
   type: SchemaAttributeTypes;
+  /**
+   * The dimension of the attribute, if applicable.
+   */
+  dimension?: DimensionType;
 };
 
 /**
@@ -73,10 +73,6 @@ export type SchemaAttribute = {
  */
 export type SchemaNode = {
   /**
-   * A list of attributes of the node.
-   */
-  attributes: SchemaAttribute[];
-  /**
    * The name of the node.
    */
   name: string;
@@ -84,4 +80,8 @@ export type SchemaNode = {
    * The type of the node, if applicable.
    */
   type?: string;
+  /**
+   * A list of attributes of the node.
+   */
+  attributes: SchemaAttribute[];
 };

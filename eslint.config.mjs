@@ -83,6 +83,9 @@ export default [
         { allowWholeFile: true }
       ],
       "import/no-anonymous-default-export": "off",
+      "perfectionist/sort-interfaces": "off",
+      "perfectionist/sort-objects": "off",
+      "perfectionist/sort-object-types": "off",
       "unicorn/consistent-function-scoping": "off",
       "unicorn/filename-case": [
         "error",
