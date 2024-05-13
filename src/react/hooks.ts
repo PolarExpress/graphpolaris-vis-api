@@ -17,44 +17,44 @@ import { receiveMessage, sendMessage } from "../base";
  * The context for providing the window object to the hooks and components.
  *
  * @remarks
- *   The `WindowContext` is used to provide the correct `window` object to the
+ *   The `windowContext` is used to provide the correct `window` object to the
  *   hooks and components in the `vis-api` package. It allows the hooks and
  *   components to access the `window` object of the frame or environment in
  *   which they are being rendered.
  *
- *   By default, the `WindowContext` is set to the global `window` object.
+ *   By default, the `windowContext` is set to the global `window` object.
  *   However, in certain scenarios, such as when using the `vis-api` package
  *   within a Storybook environment or an iframe, the global `window` object may
  *   not be the correct one to use for message communication or other
  *   window-related operations.
  *
- *   In such cases, the `WindowContext` can be set to the appropriate `window`
- *   object using the `WindowContext.Provider` component. This ensures that the
+ *   In such cases, the `windowContext` can be set to the appropriate `window`
+ *   object using the `windowContext.Provider` component. This ensures that the
  *   hooks and components in the `vis-api` package have access to the correct
  *   `window` object for their environment.
  *
  * @category React hooks.
  *
  * @example
- *   import { WindowContext } from '@graphpolaris/vis-api';
+ *   import { windowContext } from '@graphpolaris/vis-api';
  *
  *   function MyComponent() {
- *     const window = useContext(WindowContext);
+ *     const window = useContext(windowContext);
  *     // Use the window object from the context
  *     // ...
  *   }
  *
  *   function App() {
  *     return (
- *       <WindowContext.Provider value={iframe.contentWindow}>
+ *       <windowContext.Provider value={iframe.contentWindow}>
  *         <MyComponent />
- *       </WindowContext.Provider>
+ *       </windowContext.Provider>
  *     );
  *   };
  *
  * @internal
  */
-export const WindowContext = createContext<Window>(window);
+export const windowContext = createContext<Window>(window);
 
 /**
  * Returns the data of the last message received, or `undefined` if no message
@@ -94,16 +94,16 @@ function useMessage<
   TFilter extends ReceiveMessage["type"],
   TData extends Extract<ReceiveMessage, { type: TFilter }>["data"]
 >(typeFilter: TFilter, defaultValue?: TData) {
-  const window = useContext(WindowContext);
+  const window = useContext(windowContext);
   const [message, setMessage] = useState(defaultValue);
 
   const updateMessage = (data: TData) => setMessage(data);
 
-  /* eslint-disable react-hooks/exhaustive-deps -- dependency cannot change */
+  /* eslint-disable -- dependency cannot change */
   useEffect(() => {
     return receiveMessage(typeFilter, updateMessage as any, window);
   }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
+  /* eslint-enable */
 
   return useMemo(() => message, [message]);
 }
