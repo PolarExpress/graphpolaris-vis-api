@@ -17,8 +17,8 @@ dependencies:
 
 devDependencies:
   '@graphpolaris/ts-configs':
-    specifier: github:PolarExpress/ts-configs#prettier
-    version: github.com/PolarExpress/ts-configs/5910bf66600ab59440a360061ca90e82f48dfcee
+    specifier: github:PolarExpress/ts-configs
+    version: github.com/PolarExpress/ts-configs/01e769c892a3a22db57c56f093aee524c7872809
   '@types/eslint':
     specifier: ^8.56.7
     version: 8.56.10
@@ -1765,8 +1765,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/PolarExpress/ts-configs/5910bf66600ab59440a360061ca90e82f48dfcee:
-    resolution: {tarball: https://codeload.github.com/PolarExpress/ts-configs/tar.gz/5910bf66600ab59440a360061ca90e82f48dfcee}
+  github.com/PolarExpress/ts-configs/01e769c892a3a22db57c56f093aee524c7872809:
+    resolution: {tarball: https://codeload.github.com/PolarExpress/ts-configs/tar.gz/01e769c892a3a22db57c56f093aee524c7872809}
     name: ts-configs
     version: 1.0.0
     dev: true

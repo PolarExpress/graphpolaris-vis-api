@@ -19,7 +19,7 @@
     "react": "18.2.0"
   },
   "devDependencies": {
-    "@graphpolaris/ts-configs": "github:PolarExpress/ts-configs#prettier",
+    "@graphpolaris/ts-configs": "github:PolarExpress/ts-configs",
     "@types/eslint": "^8.56.7",
     "@types/react": "^18.2.74",
     "eslint": "^8.57.0",
