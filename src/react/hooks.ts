@@ -216,6 +216,7 @@ export function useSettings<T extends Settings>(
       sendSettings(defaultValue)
     );
     return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- default configuration should not change, so we don't facilitate it
   }, []);
 
   return [settingsData, sendSettings];
