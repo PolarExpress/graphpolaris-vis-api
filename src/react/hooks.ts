@@ -212,7 +212,9 @@ export function useSettings<T extends Settings>(
     });
 
   useEffect(() => {
-    const unsubscribe = receiveMessage("SettingsRequest", () => sendSettings(defaultValue));
+    const unsubscribe = receiveMessage("SettingsRequest", () =>
+      sendSettings(defaultValue)
+    );
     return unsubscribe;
   }, []);
 
