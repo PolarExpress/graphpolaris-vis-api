@@ -12,14 +12,14 @@ import type { ReceiveMessage, SendMessage } from "./message.types";
 /**
  * Performs an action everytime a message of the specified type is received.
  *
- * @category Message event listeners.
- *
  * @param   typeFilter    The type of messages to listen for.
  * @param   callback      The action to perform an receiving a message.
  * @param   windowContext The window to attach to.
  *
  * @returns               A function to unsubscribe from the message event
  *   listener.
+ *
+ * @category Message event listeners
  *
  * @internal
  */
@@ -45,11 +45,11 @@ export function receiveMessage<
 /**
  * Performs an action everytime a message with graph data is received.
  *
- * @category Message event listeners.
- *
  * @param   callback The action to perform an receiving a message.
  *
  * @returns          A function to unsubscribe from the message event listener.
+ *
+ * @category Message event listeners
  */
 export function receiveGraphData(callback: (data: GraphQueryResult) => void) {
   return receiveMessage("GraphData", callback);
@@ -58,11 +58,11 @@ export function receiveGraphData(callback: (data: GraphQueryResult) => void) {
 /**
  * Performs an action everytime a message with settings is received.
  *
- * @category Message event listeners.
- *
  * @param   callback The action to perform an receiving a message.
  *
  * @returns          A function to unsubscribe from the message event listener.
+ *
+ * @category Message event listeners
  */
 export function receiveSettings(callback: (data: Settings) => void) {
   return receiveMessage("Settings", callback);
@@ -71,11 +71,11 @@ export function receiveSettings(callback: (data: Settings) => void) {
 /**
  * Performs an action everytime a message with a schema graph is received.
  *
- * @category Message event listeners.
- *
  * @param   callback The action to perform an receiving a message.
  *
  * @returns          A function to unsubscribe from the message event listener.
+ *
+ * @category Message event listeners
  */
 export function receiveSchema(callback: (data: SchemaGraph) => void) {
   return receiveMessage("Schema", callback);
@@ -85,11 +85,11 @@ export function receiveSchema(callback: (data: SchemaGraph) => void) {
  * Performs an action everytime a message with machine learning data is
  * received.
  *
- * @category Message event listeners.
- *
  * @param   callback The action to perform an receiving a message.
  *
  * @returns          A function to unsubscribe from the message event listener.
+ *
+ * @category Message event listeners
  */
 export function receiveMLData(callback: (data: ML) => void) {
   return receiveMessage("MLData", callback);
@@ -98,9 +98,9 @@ export function receiveMLData(callback: (data: ML) => void) {
 /**
  * Sends a message to the GraphPolaris frontend.
  *
- * @category Message event listeners.
- *
  * @param message The message to send.
+ *
+ * @category Message event listeners
  *
  * @internal
  */
@@ -111,10 +111,10 @@ export function sendMessage(message: SendMessage) {
 /**
  * Send a message with updated settings to the GraphPolaris frontend.
  *
- * @category Message event listeners.
- *
  * @param settings The updated settings to send. Only the modified settings need
  *   to be sent.
+ *
+ * @category Message event listeners
  */
 export function sendSettings(settings: Settings) {
   sendMessage({
