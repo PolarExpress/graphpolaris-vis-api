@@ -10,7 +10,7 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "build": "tsc --noEmit"
+    "build": "tsc"
   },
   "author": "",
   "dependencies": {
