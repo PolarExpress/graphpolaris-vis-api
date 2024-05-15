@@ -10,8 +10,8 @@
 
   "plugins": ["prettier-plugin-jsdoc"],
   "jsdocCommentLineStrategy": "multiline",
-  "jsdocDescriptionWithDot": true,
   "jsdocKeepUnParseAbleExampleIndent": true,
   "jsdocSeparateTagGroups": true,
-  "jsdocVerticalAlignment": true
+  "jsdocVerticalAlignment": true,
+  "jsdocTagsOrder": "{\"category\":47,  \"internal\":48}"
 }

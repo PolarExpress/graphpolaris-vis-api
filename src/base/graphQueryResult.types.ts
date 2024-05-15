@@ -3,7 +3,7 @@
 /**
  * The raw graph data from the query.
  *
- * @category Graph data.
+ * @category Graph data
  */
 export interface GraphQueryResult {
   /**
@@ -28,7 +28,7 @@ export interface GraphQueryResult {
 /**
  * A single node inside a graph.
  *
- * @category Graph data.
+ * @category Graph data
  */
 export interface Node {
   /**
@@ -48,6 +48,8 @@ export interface Node {
 
 /**
  * A single edge inside a graph.
+ *
+ * @category Graph data
  */
 export interface Edge {
   /**
@@ -76,7 +78,7 @@ export interface Edge {
 /**
  * Metadata associated with a graph.
  *
- * @category Graph data.
+ * @category Graph data
  */
 export type GraphMetaData = {
   /**
@@ -96,7 +98,7 @@ export type GraphMetaData = {
 /**
  * Contains metadata about either nodes or edges.
  *
- * @category Graph data.
+ * @category Graph data
  */
 // FIXME: make better different types for nodes and edges.
 export type CompressedElement = {
@@ -118,7 +120,7 @@ export type CompressedElement = {
 /**
  * Metadata associated with a group of elements.
  *
- * @category Graph data.
+ * @category Graph data
  */
 export interface ElementTypeMetadata {
   /**
@@ -142,7 +144,7 @@ export interface ElementTypeMetadata {
 /**
  * Attributes associated with a group of elements.
  *
- * @category Graph data.
+ * @category Graph data
  */
 export interface ElementTypeAttributes {
   /**
@@ -162,7 +164,7 @@ export interface ElementTypeAttributes {
 /**
  * The type of an attribute.
  *
- * @category Graph data.
+ * @category Graph data
  */
 export type DimensionType =
   | "categorical"
