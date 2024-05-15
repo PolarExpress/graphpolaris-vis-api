@@ -33,8 +33,6 @@ import { receiveMessage, sendMessage } from "../base";
  *   hooks and components in the `vis-api` package have access to the correct
  *   `window` object for their environment.
  *
- * @category React hooks.
- *
  * @example
  *   import { windowContext } from '@graphpolaris/vis-api';
  *
@@ -52,6 +50,8 @@ import { receiveMessage, sendMessage } from "../base";
  *     );
  *   };
  *
+ * @category React hooks
+ *
  * @internal
  */
 export const windowContext = createContext<Window>(window);
@@ -62,9 +62,9 @@ export const windowContext = createContext<Window>(window);
  *
  * Component rerenders on receiving a new message.
  *
- * @category React hooks.
- *
  * @param typeFilter The type of messages to listen for.
+ *
+ * @category React hooks
  *
  * @internal
  */
@@ -78,10 +78,10 @@ function useMessage<
  *
  * Component rerenders on receiving a new message.
  *
- * @category React hooks.
- *
  * @param typeFilter   The type of messages to listen for.
  * @param defaultValue The standard value for the state.
+ *
+ * @category React hooks
  *
  * @internal
  */
@@ -114,7 +114,7 @@ function useMessage<
  *
  * Component rerenders on receiving a new message.
  *
- * @category React hooks.
+ * @category React hooks
  */
 export function useGraphData(): GraphQueryResult | undefined {
   return useMessage("GraphData");
@@ -126,7 +126,7 @@ export function useGraphData(): GraphQueryResult | undefined {
  *
  * Component rerenders on receiving a new message.
  *
- * @category React hooks.
+ * @category React hooks
  */
 export function useMLData(): ML | undefined {
   return useMessage("MLData");
@@ -142,9 +142,6 @@ export function useMLData(): ML | undefined {
  *   components use the {@link useSettings} hook that can also push a new
  *   configuration to GraphPolaris.
  *
- * @category React hooks.
- * @category Settings.
- *
  * @example
  *   type VisSettings = { theme: "dark" | "light" };
  *   export default function Visualisation() {
@@ -157,6 +154,9 @@ export function useMLData(): ML | undefined {
  *
  * @returns Returns the last message containing visualization settings that has
  *   been sent, or `null` if no configuration has yet been sent.
+ *
+ * @category React hooks
+ * @category Settings
  */
 export function useSettingsData<T extends Settings>(): T | undefined {
   return useMessage("Settings");
@@ -170,9 +170,6 @@ export function useSettingsData<T extends Settings>(): T | undefined {
  *   This hook should only be used for the settings component. The update
  *   function's messages are ignored by GraphPorlaris if it is called from the
  *   visualisation component, use the {@link useSettingsData} hook instead.
- *
- * @category React hooks.
- * @category Settings.
  *
  * @example
  *   type VisSettings = { theme: "dark" | "light" };
@@ -200,6 +197,9 @@ export function useSettingsData<T extends Settings>(): T | undefined {
  *   The function accepts a partial version of the settings, and GraphPolaris
  *   will merge the current configuration with the partially sent
  *   configuration.
+ *
+ * @category React hooks
+ * @category Settings
  */
 export function useSettings<T extends Settings>(
   defaultValue: T
@@ -221,9 +221,9 @@ export function useSettings<T extends Settings>(
 /**
  * A function to send an update to the visualisation's configuration.
  *
- * @category Settings.
- *
  * @see {@link useSettings}
+ *
+ * @category Settings
  */
 export type UpdateFunction<T> = (changes: Partial<T>) => void;
 
@@ -233,10 +233,10 @@ export type UpdateFunction<T> = (changes: Partial<T>) => void;
  *
  * Component rerenders on receiving a new message.
  *
- * @category React hooks.
- *
  * @returns A `SchemaGraph` containing the schema of the currently selected
  *   data.
+ *
+ * @category React hooks
  */
 export function useSchema(): SchemaGraph | undefined {
   return useMessage("Schema");

@@ -10,5 +10,7 @@ import baseConfig from "@graphpolaris/ts-configs/prettier";
 
 export default {
   ...baseConfig,
-  jsdocKeepUnParseAbleExampleIndent: true
+  jsdocKeepUnParseAbleExampleIndent: true,
+  jsdocDescriptionWithDot: false,
+  jsdocTagsOrder: '{"category":47,  "internal":48}'
 };
