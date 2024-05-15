@@ -8,7 +8,12 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-import type { GraphQueryResult, ML, SchemaGraph, Settings } from "../base";
+import type {
+  GraphQueryResult,
+  MLResults,
+  SchemaGraph,
+  Settings
+} from "../base";
 import type { ReceiveMessage } from "../base/message.types";
 
 import { receiveMessage, sendMessage } from "../base";
@@ -128,7 +133,7 @@ export function useGraphData(): GraphQueryResult | undefined {
  *
  * @category React hooks
  */
-export function useMLData(): ML | undefined {
+export function useMLData(): MLResults | undefined {
   return useMessage("MLData");
 }
 

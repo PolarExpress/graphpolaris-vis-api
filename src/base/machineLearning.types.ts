@@ -1,40 +1,49 @@
-/* eslint-disable custom/enforce-copyright-comment -- Not our code. */
+/*
+ * This program has been developed by students from the bachelor
+ * Computer Science at Utrecht University within the Software Project course.
+ *
+ * © Copyright Utrecht University
+ * (Department of Information and Computing Sciences)
+ */
 
-export enum MLTypesEnum {
-  CENTRALITY = "centrality",
-  COMMUNITY_DETECTION = "communityDetection",
-  LINK_PREDICTION = "linkPrediction",
-  SHORTEST_PATH = "shortestPath"
-}
+/**
+ * A collection of results from machine learning services.
+ *
+ * @category ML data
+ */
+export type MLResults = {
+  /**
+   * A list of the actual results.
+   */
+  results: MLResult[];
 
-export type ML = {
-  [MLTypesEnum.CENTRALITY]: MLInstance<Record<string, number>>;
-  [MLTypesEnum.COMMUNITY_DETECTION]: CommunityDetection;
-  [MLTypesEnum.LINK_PREDICTION]: MLInstance<LinkPredictionInstance[]>;
-  [MLTypesEnum.SHORTEST_PATH]: ShortestPath;
+  // Created a wrapper type in order to facilitate possible future metadata.
 };
 
-export type MLInstance<T> = {
-  enabled: boolean;
-  result: T;
-};
-
-export type LinkPredictionInstance = {
-  id: string;
-  from: string;
-  to: string;
-  attributes: { jaccard_coefficient: number };
-};
-
-export type CommunityDetectionInstance = string[]; // set of ids
-
-export type CommunityDetection = {
-  jaccard_threshold: number;
-} & MLInstance<CommunityDetectionInstance[]>;
-
-export type ShortestPath = {
-  enabled: boolean;
-  result: any;
-  srcNode?: string;
-  trtNode?: string;
+/**
+ * A single result from a machine learning service.
+ *
+ * @category ML data
+ */
+// TODO: link to ML documentation
+export type MLResult = {
+  /**
+   * The protocol used for the data transfer.
+   *
+   * This can either be an officially recognised protocol, or a specialized
+   * user-defined one.
+   */
+  protocol: string;
+  /**
+   * The actual data from the machine learning service. The type depends on the
+   * protocol specified in {@link MLResult.protocol}.
+   */
+  value: unknown;
+  /**
+   * An additional label attached to the data by the machine learning service.
+   *
+   * Can be used to differentiate between multiple results with the same
+   * protocol, or to display extra information.
+   */
+  label: string;
 };

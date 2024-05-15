@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { GraphQueryResult, ML, SchemaGraph, Settings } from ".";
+import type { GraphQueryResult, MLResults, SchemaGraph, Settings } from ".";
 import type { ReceiveMessage, SendMessage } from "./message.types";
 
 /**
@@ -91,7 +91,7 @@ export function receiveSchema(callback: (data: SchemaGraph) => void) {
  *
  * @category Message event listeners
  */
-export function receiveMLData(callback: (data: ML) => void) {
+export function receiveMLData(callback: (data: MLResults) => void) {
   return receiveMessage("MLData", callback);
 }
 

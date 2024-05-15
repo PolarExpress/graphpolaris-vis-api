@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { GraphQueryResult, ML, SchemaGraph, Settings } from ".";
+import type { GraphQueryResult, MLResults, SchemaGraph, Settings } from ".";
 
 /**
  * The base message type for all messages.
@@ -39,7 +39,7 @@ export interface GraphMessage extends BaseMessage {
  */
 export interface MLMessage extends BaseMessage {
   type: "MLData";
-  data: ML;
+  data: MLResults;
 }
 
 /**
