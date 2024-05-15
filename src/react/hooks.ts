@@ -154,14 +154,14 @@ export function useMLData(): ML | undefined {
  * @example
  *   ```tsx
  *     type VisSettings = { theme: "dark" | "light" };
- * 
+ *
  *     export default function Visualization() {
  *       const settings = useSettingsData<VisSettings>();
- * 
+ *
  *       if (!settings) {
  *         return <div>Did not receive data yet!</div>;
  *       }
- * 
+ *
  *       return (<div className={`theme-${settings.theme}`}>...</div>);
  *     }
  *   ```
@@ -192,12 +192,12 @@ export function useSettingsData<T extends Settings>(): T | undefined {
  * @example
  *   ```tsx
  *     type VisSettings = { theme: "dark" | "light" };
- * 
+ *
  *     export default function Settings() {
  *       const [config, updateConfig] = useSettings<VisSettings>({
  *         theme: "dark"
  *       });
- * 
+ *
  *       return (<>
  *         <label htmlFor="theme">Dark theme:</label>
  *         <input
