@@ -7,95 +7,21 @@
  */
 
 import { FlatCompat } from "@eslint/eslintrc";
-import eslint from "@eslint/js";
-import prettier from "eslint-config-prettier";
-
-const rule = {
-  create(context) {
-    const commentText =
-      "\n" +
-      " * This program has been developed by students from the bachelor\n" +
-      " * Computer Science at Utrecht University within the Software Project course.\n" +
-      " *\n" +
-      " * © Copyright Utrecht University\n" +
-      " * (Department of Information and Computing Sciences)\n" +
-      " ";
-    return {
-      Program(node) {
-        if (node.body.length === 0) return;
-        const comments = context.sourceCode.getCommentsBefore(node.body[0]);
-        if (
-          !(
-            comments.length > 0 &&
-            comments[0].range[0] === 0 &&
-            comments[0].value === commentText
-          )
-        ) {
-          context.report({
-            fix(fixer) {
-              return fixer.insertTextBefore(
-                comments[0] ?? node.body[0],
-                `/*${commentText}*/\n\n`
-              );
-            },
-            message: "Copyright comment not found at the top",
-            node: comments[0] ?? node.body[0]
-          });
-          return;
-        }
-      }
-    };
-  },
-  meta: {
-    docs: {
-      category: "Mandatory",
-      description:
-        "Ensure a specific comment exists at the top of the document",
-      recommended: true
-    },
-    fixable: "code",
-    type: "maintenance"
-  }
-};
-
-const plugin = { rules: { "enforce-copyright-comment": rule } };
+import baseConfig from "@graphpolaris/ts-configs/eslint";
 
 const compat = new FlatCompat();
 
 export default [
-  {
-    ignores: ["**/*.config.*"],
-    plugins: { custom: plugin },
-    rules: { "custom/enforce-copyright-comment": "error" }
-  },
-  prettier,
-  eslint.configs.recommended,
-  ...compat.extends(
-    "plugin:unicorn/recommended",
-    "plugin:perfectionist/recommended-natural",
-    "plugin:eslint-comments/recommended",
-    "react-app"
-  ),
+  ...baseConfig,
   {
     rules: {
-      "eslint-comments/disable-enable-pair": [
-        "error",
-        { allowWholeFile: true }
-      ],
+      "@typescript-eslint/no-explicit-any": "off",
       "import/no-anonymous-default-export": "off",
       "perfectionist/sort-interfaces": "off",
       "perfectionist/sort-objects": "off",
       "perfectionist/sort-object-types": "off",
       "unicorn/consistent-function-scoping": "off",
-      "unicorn/filename-case": [
-        "error",
-        {
-          case: "camelCase"
-        }
-      ]
+      "unicorn/no-abusive-eslint-disable": "off"
     }
-  },
-  {
-    ignores: ["docs/**"]
   }
 ];

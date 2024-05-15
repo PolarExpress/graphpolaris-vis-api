@@ -23,13 +23,13 @@ export type LinkPredictionInstance = {
   id: string;
   from: string;
   to: string;
-  attributes: { jaccard_coefficient: number };
+  attributes: { jaccard_coefficient: number }; // eslint-disable-line @typescript-eslint/naming-convention
 };
 
 export type CommunityDetectionInstance = string[]; // set of ids
 
 export type CommunityDetection = {
-  jaccard_threshold: number;
+  jaccard_threshold: number; // eslint-disable-line @typescript-eslint/naming-convention
 } & MLInstance<CommunityDetectionInstance[]>;
 
 export type ShortestPath = {
