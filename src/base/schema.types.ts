@@ -1,6 +1,7 @@
 /* eslint-disable custom/enforce-copyright-comment -- Not our code. */
 
 import type { Attributes, SerializedGraph } from "graphology-types";
+
 import { DimensionType } from "./graphQueryResult.types";
 
 /**
