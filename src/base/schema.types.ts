@@ -1,9 +1,6 @@
 /* eslint-disable custom/enforce-copyright-comment -- Not our code. */
 
-import type {
-  Attributes as GAttributes,
-  SerializedGraph
-} from "graphology-types";
+import type { Attributes, SerializedGraph } from "graphology-types";
 
 import { DimensionType } from "./graphQueryResult.types";
 
@@ -12,13 +9,13 @@ import { DimensionType } from "./graphQueryResult.types";
  *
  * @category Schema data
  */
-export type SchemaGraphologyNode = GAttributes & SchemaNode;
+export type SchemaGraphologyNode = Attributes & SchemaNode;
 /**
  * An edge inside a schema graph.
  *
  * @category Schema data
  */
-export type SchemaGraphologyEdge = GAttributes;
+export type SchemaGraphologyEdge = Attributes;
 
 /**
  * A graph containing the database schema.
@@ -28,7 +25,7 @@ export type SchemaGraphologyEdge = GAttributes;
 export type SchemaGraph = SerializedGraph<
   SchemaGraphologyNode,
   SchemaGraphologyEdge,
-  GAttributes
+  Attributes
 >;
 
 /**

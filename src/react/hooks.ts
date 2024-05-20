@@ -8,10 +8,16 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-import type { GraphQueryResult, ML, SchemaGraph, Settings } from "../base";
 import type { ReceiveMessage } from "../internal";
 
-import { receiveMessage, sendMessage } from "../base";
+import {
+  type GraphQueryResult,
+  type ML,
+  type SchemaGraph,
+  type Settings,
+  receiveMessage,
+  sendMessage
+} from "../base";
 
 /**
  * The context for providing the window object to the hooks and components.
