@@ -212,8 +212,12 @@ export function useSettings<T extends Settings>(
     });
 
   useEffect(() => {
-    sendSettings(defaultValue);
-  }, [defaultValue]);
+    const unsubscribe = receiveMessage("SettingsRequest", () =>
+      sendSettings(defaultValue)
+    );
+    return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- default configuration should not change, so we don't facilitate it
+  }, []);
 
   return [settingsData, sendSettings];
 }

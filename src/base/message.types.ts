@@ -63,6 +63,17 @@ export interface SchemaMessage extends BaseMessage {
 }
 
 /**
+ * A message that is sent from the frontend to request the default config. The
+ * response should be a {@link SettingsMessage}.
+ *
+ * @internal
+ */
+export interface SettingsRequestMessage extends BaseMessage {
+  type: "SettingsRequest";
+  data: undefined;
+}
+
+/**
  * The types of messages that an add-on can receive.
  *
  * @internal
@@ -71,7 +82,8 @@ export type ReceiveMessage =
   | GraphMessage
   | MLMessage
   | SchemaMessage
-  | SettingsMessage;
+  | SettingsMessage
+  | SettingsRequestMessage;
 
 /**
  * The types of messages that an add-on can send.
