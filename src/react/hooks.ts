@@ -9,7 +9,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import type { GraphQueryResult, ML, SchemaGraph, Settings } from "../base";
-import type { ReceiveMessage } from "../base/message.types";
+import type { ReceiveMessage } from "../internal";
 
 import { receiveMessage, sendMessage } from "../base";
 

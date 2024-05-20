@@ -7,7 +7,7 @@
  */
 
 import type { GraphQueryResult, ML, SchemaGraph, Settings } from ".";
-import type { ReceiveMessage, SendMessage } from "./message.types";
+import type { ReceiveMessage, SendMessage } from "../internal";
 
 /**
  * Performs an action everytime a message of the specified type is received.

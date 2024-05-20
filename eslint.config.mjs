@@ -6,13 +6,21 @@
  * (Department of Information and Computing Sciences)
  */
 
-import { FlatCompat } from "@eslint/eslintrc";
 import baseConfig from "@graphpolaris/ts-configs/eslint";
-
-const compat = new FlatCompat();
+import react from "eslint-plugin-react/configs/all.js";
+import { FlatCompat } from "@eslint/eslintrc";
 
 export default [
   ...baseConfig,
+  {
+    ...react,
+    settings: {
+      react: {
+        version: "detect"
+      }
+    }
+  },
+  ...new FlatCompat().extends("plugin:react-hooks/recommended"),
   {
     rules: {
       "@typescript-eslint/no-explicit-any": "off",

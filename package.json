@@ -4,6 +4,7 @@
   "description": "API for messages for visualization add-ons for GraphPolaris.",
   "exports": {
     "./react": "./src/react/index.ts",
+    "./internal": "./src/internal.ts",
     ".": "./src/base/index.ts"
   },
   "scripts": {
@@ -24,6 +25,8 @@
     "@types/react": "^18.2.74",
     "eslint": "^8.57.0",
     "eslint-plugin-perfectionist": "^2.10.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-unicorn": "^52.0.0",
     "prettier": "^3.2.5",
     "typedoc": "^0.25.13",
