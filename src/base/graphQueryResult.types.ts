@@ -5,7 +5,7 @@
  *
  * @category Graph data
  */
-export interface GraphQueryResult {
+export type GraphQueryResult = {
   /**
    * Lists all the edges in the graph.
    */
@@ -23,14 +23,14 @@ export interface GraphQueryResult {
    * progress.
    */
   queryingBackend: boolean;
-}
+};
 
 /**
  * A single node inside a graph.
  *
  * @category Graph data
  */
-export interface Node {
+export type Node = {
   /**
    * The ID of the node. Unique within the graph it is contained in.
    */
@@ -44,14 +44,14 @@ export interface Node {
   // TODO: document.
   mldata?: unknown; // FIXME
   /* type: string[]; */
-}
+};
 
 /**
  * A single edge inside a graph.
  *
  * @category Graph data
  */
-export interface Edge {
+export type Edge = {
   /**
    * Additional attributes associated with the edge.
    */
@@ -73,7 +73,7 @@ export interface Edge {
    */
   to: string;
   /* type: string; */
-}
+};
 
 /**
  * Metadata associated with a graph.
@@ -122,7 +122,7 @@ export type CompressedElement = {
  *
  * @category Graph data
  */
-export interface ElementTypeMetadata {
+export type ElementTypeMetadata = {
   /**
    * Additional attributes associated with the elements.
    */
@@ -139,14 +139,14 @@ export interface ElementTypeMetadata {
    * The number of elements with this label.
    */
   count: number;
-}
+};
 
 /**
  * Attributes associated with a group of elements.
  *
  * @category Graph data
  */
-export interface ElementTypeAttributes {
+export type ElementTypeAttributes = {
   /**
    * The type of the attribute.
    */
@@ -159,7 +159,7 @@ export interface ElementTypeAttributes {
    * The values of the attribute, associated with this label, if applicable.
    */
   values?: unknown[];
-}
+};
 
 /**
  * The type of an attribute.

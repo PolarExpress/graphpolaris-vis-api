@@ -115,10 +115,14 @@ function useMessage<
 }
 
 /**
- * Returns the data of the last message containing graph data. that has been
- * sent, or `null` if no such message has been sent.
+ * Returns the current graph data, or `undefined` if they are not (yet)
+ * available.
  *
- * Component rerenders on receiving a new message.
+ * @remarks
+ *   Component rerenders when the returned value changes.
+ *
+ * @returns A {@link GraphQueryResult} containing the raw data of the current
+ *   graph.
  *
  * @category React hooks
  */
@@ -127,13 +131,18 @@ export function useGraphData(): GraphQueryResult | undefined {
 }
 
 /**
- * Returns the data of the last message containing machine learning data that
- * has been sent, or `null` if no such message has been sent.
+ * Returns the current machine learning results, or `undefined` if they are not
+ * (yet) available.
  *
- * Component rerenders on receiving a new message.
+ * @remarks
+ *   Component rerenders when the returned value changes.
+ *
+ * @returns A {@link ML} containing the results from the active machine learning
+ *   plugins.
  *
  * @category React hooks
  */
+// TODO: don't forget to update the link once the new ML type is merged.
 export function useMLData(): ML | undefined {
   return useMessage("MLData");
 }
@@ -144,22 +153,30 @@ export function useMLData(): ML | undefined {
  * configuration.
  *
  * @remarks
- *   This hook should only be used for the visualization component. For setting
- *   components use the {@link useSettings} hook that can also push a new
- *   configuration to GraphPolaris.
+ *   This hook should only be used for the visualization component. For the
+ *   settings component, use the {@link useSettings} hook that can also push a
+ *   new configuration to GraphPolaris.
  *
  * @example
- *   type VisSettings = { theme: "dark" | "light" };
- *   export default function Visualisation() {
- *     const { theme } = useSettingsData<VisSettings>();
- *     return (<div className={`theme-${theme}`}>...</div>);
- *   };
+ *   ```tsx
+ *     type VisSettings = { theme: "dark" | "light" };
+ *
+ *     export default function Visualization() {
+ *       const settings = useSettingsData<VisSettings>();
+ *
+ *       if (!settings) {
+ *         return <div>Did not receive data yet!</div>;
+ *       }
+ *
+ *       return (<div className={`theme-${settings.theme}`}>...</div>);
+ *     }
+ *   ```
  *
  * @template T The type of the configuration which must adhere to the
  *   configuration requirements.
  *
- * @returns Returns the last message containing visualization settings that has
- *   been sent, or `null` if no configuration has yet been sent.
+ * @returns Returns the currently selected configuration, or `undefined` if it
+ *   is not (yet) available.
  *
  * @category React hooks
  * @category Settings
@@ -174,22 +191,31 @@ export function useSettingsData<T extends Settings>(): T | undefined {
  *
  * @remarks
  *   This hook should only be used for the settings component. The update
- *   function's messages are ignored by GraphPorlaris if it is called from the
- *   visualisation component, use the {@link useSettingsData} hook instead.
+ *   function's messages are ignored by GraphPolaris if it is called from the
+ *   visualization component. For the visualization component, use the
+ *   {@link useSettingsData} hook instead.
  *
  * @example
- *   type VisSettings = { theme: "dark" | "light" };
- *   export default function Settings() {
- *     const [config, updateConfig] = useSettings<VisSettings>({ theme: "dark" });
- *     return (<>
- *       <label htmlFor="theme">Dark theme:</label>
- *       <input
- *         id="theme"
- *         type="checkbox"
- *         value={config.theme === "dark"}
- *         onChange={e => updateConfig({ theme: e.target.value ? "dark" : "light" })} />
- *     </>);
- *   };
+ *   ```tsx
+ *     type VisSettings = { theme: "dark" | "light" };
+ *
+ *     export default function Settings() {
+ *       const [config, updateConfig] = useSettings<VisSettings>({
+ *         theme: "dark"
+ *       });
+ *
+ *       return (<>
+ *         <label htmlFor="theme">Dark theme:</label>
+ *         <input
+ *           id="theme"
+ *           type="checkbox"
+ *           value={config.theme === "dark"}
+ *           onChange={e => updateConfig({
+ *             theme: e.target.value ? "dark" : "light"
+ *           })}/>
+ *       </>);
+ *     }
+ *   ```
  *
  * @template T The type of the configuration which must adhere to the
  *   configuration requirements.
@@ -229,7 +255,7 @@ export function useSettings<T extends Settings>(
 }
 
 /**
- * A function to send an update to the visualisation's configuration.
+ * A function to send an update to the visualization's configuration.
  *
  * @see {@link useSettings}
  *
@@ -238,12 +264,13 @@ export function useSettings<T extends Settings>(
 export type UpdateFunction<T> = (changes: Partial<T>) => void;
 
 /**
- * Returns the data of the last message containing the schema graph that has
- * been sent, or `null` if no such message has been sent.
+ * Returns the current schema graph, or `undefined` if it is not (yet)
+ * available.
  *
- * Component rerenders on receiving a new message.
+ * @remarks
+ *   Component rerenders when the returned value changes.
  *
- * @returns A `SchemaGraph` containing the schema of the currently selected
+ * @returns A {@link SchemaGraph} containing the schema of the currently selected
  *   data.
  *
  * @category React hooks
