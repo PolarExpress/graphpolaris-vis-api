@@ -8,7 +8,6 @@
 import type { GraphQueryResult, MLResults, SchemaGraph, Settings } from ".";
 import type { ReceiveMessage, SendMessage } from "../internal";
 
-
 /**
  * Performs an action every time a message of the specified type is received.
  *

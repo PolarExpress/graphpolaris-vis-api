@@ -6,8 +6,12 @@
  * (Department of Information and Computing Sciences)
  */
 
-import type { GraphQueryResult, MLResults, SchemaGraph, Settings } from "../base";
-
+import type {
+  GraphQueryResult,
+  MLResults,
+  SchemaGraph,
+  Settings
+} from "../base";
 
 /**
  * The base message type for all messages.
