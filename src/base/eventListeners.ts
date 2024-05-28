@@ -5,12 +5,12 @@
  * © Copyright Utrecht University
  * (Department of Information and Computing Sciences)
  */
-
 import type { GraphQueryResult, MLResults, SchemaGraph, Settings } from ".";
-import type { ReceiveMessage, SendMessage } from "./message.types";
+import type { ReceiveMessage, SendMessage } from "../internal";
+
 
 /**
- * Performs an action everytime a message of the specified type is received.
+ * Performs an action every time a message of the specified type is received.
  *
  * @param   typeFilter    The type of messages to listen for.
  * @param   callback      The action to perform an receiving a message.
@@ -43,7 +43,7 @@ export function receiveMessage<
 }
 
 /**
- * Performs an action everytime a message with graph data is received.
+ * Performs an action every time a message with graph data is received.
  *
  * @param   callback The action to perform an receiving a message.
  *
@@ -56,7 +56,7 @@ export function receiveGraphData(callback: (data: GraphQueryResult) => void) {
 }
 
 /**
- * Performs an action everytime a message with settings is received.
+ * Performs an action every time a message with settings is received.
  *
  * @param   callback The action to perform an receiving a message.
  *
@@ -69,7 +69,7 @@ export function receiveSettings(callback: (data: Settings) => void) {
 }
 
 /**
- * Performs an action everytime a message with a schema graph is received.
+ * Performs an action every time a message with a schema graph is received.
  *
  * @param   callback The action to perform an receiving a message.
  *
@@ -82,7 +82,7 @@ export function receiveSchema(callback: (data: SchemaGraph) => void) {
 }
 
 /**
- * Performs an action everytime a message with machine learning data is
+ * Performs an action every time a message with machine learning data is
  * received.
  *
  * @param   callback The action to perform an receiving a message.
