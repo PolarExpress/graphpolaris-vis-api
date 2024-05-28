@@ -12,7 +12,7 @@ import type { ReceiveMessage } from "../internal";
 
 import {
   type GraphQueryResult,
-  type ML,
+  type MLResults,
   type SchemaGraph,
   type Settings,
   receiveMessage,
@@ -142,8 +142,7 @@ export function useGraphData(): GraphQueryResult | undefined {
  *
  * @category React hooks
  */
-// TODO: don't forget to update the link once the new ML type is merged.
-export function useMLData(): ML | undefined {
+export function useMLData(): MLResults | undefined {
   return useMessage("MLData");
 }
 
