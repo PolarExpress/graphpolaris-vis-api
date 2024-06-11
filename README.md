@@ -46,7 +46,7 @@ The default location for the visualization itself is in the `vis/vis.js(x)` file
 
 You can make use of the following data:
 
-- [Graph data](./interfaces/base.GraphQueryResult.html): the raw data of the graph. This is the direct result of the query.
+- [Graph data](./types/base.GraphQueryResult.html): the raw data of the graph. This is the direct result of the query.
 - [Schema graph](./types/base.SchemaGraph.html): the schema of the queried graph.
 - [Machine learning data](./types/base.ML.html): additional data provided by various machine learning plugins.
   <!-- TODO: add documentation on how to use these. -->
