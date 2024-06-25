@@ -6,7 +6,7 @@
  * (Department of Information and Computing Sciences)
  */
 import type { GraphQueryResult, MLResults, SchemaGraph, Settings } from ".";
-import type { ReceiveMessage, SendMessage } from "../internal";
+import type { ReadyMessage, ReceiveMessage, SendMessage } from "../internal";
 
 /**
  * Performs an action every time a message of the specified type is received.
@@ -36,7 +36,13 @@ export function receiveMessage<
     if (data.type === typeFilter) callback(data.data as TData);
   }
 
+  const readyMessage: ReadyMessage = {
+    data: undefined,
+    type: `${typeFilter}Ready`
+  };
+
   windowContext.addEventListener("message", updateMessage);
+  window.parent.postMessage(readyMessage, "*");
 
   return () => windowContext.removeEventListener("message", updateMessage);
 }

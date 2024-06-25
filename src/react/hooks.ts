@@ -137,8 +137,8 @@ export function useGraphData(): GraphQueryResult | undefined {
  * @remarks
  *   Component rerenders when the returned value changes.
  *
- * @returns A {@link ML} containing the results from the active machine learning
- *   plugins.
+ * @returns A {@link MLResults} containing the results from the active machine
+ *   learning plugins.
  *
  * @category React hooks
  */

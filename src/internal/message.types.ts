@@ -68,6 +68,16 @@ export interface SchemaMessage extends BaseMessage {
 }
 
 /**
+ * A message that notifies the frontend that the add-on wants to receive data.
+ *
+ * @internal
+ */
+export interface ReadyMessage extends BaseMessage {
+  data: undefined;
+  type: `${ReceiveMessage["type"]}Ready`;
+}
+
+/**
  * A message that is sent from the frontend to request the default config. The
  * response should be a {@link SettingsMessage}.
  *
@@ -95,4 +105,4 @@ export type ReceiveMessage =
  *
  * @internal
  */
-export type SendMessage = SettingsMessage;
+export type SendMessage = ReadyMessage | SettingsMessage;
