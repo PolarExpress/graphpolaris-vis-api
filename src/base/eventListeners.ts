@@ -42,7 +42,7 @@ export function receiveMessage<
   };
 
   windowContext.addEventListener("message", updateMessage);
-  window.parent.postMessage(readyMessage, "*");
+  sendMessage(readyMessage);
 
   return () => windowContext.removeEventListener("message", updateMessage);
 }
