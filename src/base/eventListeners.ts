@@ -35,16 +35,20 @@ export function receiveMessage<
 
     if (data.type === typeFilter) callback(data.data as TData);
   }
-
-  const readyMessage: ReadyMessage = {
-    data: undefined,
-    type: `${typeFilter}Ready`
-  };
-
+  
   windowContext.addEventListener("message", updateMessage);
-  sendMessage(readyMessage);
-
+  
   return () => windowContext.removeEventListener("message", updateMessage);
+}
+
+/**
+ * Notifies GraphPolaris that the visualisation is ready to receive messages
+ */
+export function startListening() {
+  sendMessage({
+    data: undefined,
+    type: `Ready`
+  });
 }
 
 /**
