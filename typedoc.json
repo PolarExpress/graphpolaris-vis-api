@@ -8,7 +8,7 @@
     "React hooks": 2
   },
   "out": "./docs",
-  "readme": "./README.md",
+  "readme": "none",
   "excludeInternal": true,
   "navigationLinks": {
     "GitHub": "https://github.com/PolarExpress/graphpolaris-vis-api" // TODO: set this to GitLab after migration.
